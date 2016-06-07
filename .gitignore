@@ -1,2 +1,4 @@
 *.impl
 .idea
+target/
+bower_components/
