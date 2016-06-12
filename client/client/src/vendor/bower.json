@@ -1,0 +1,25 @@
+{
+  "name": "vendor",
+  "authors": [
+    "woshiwanting <smartwanting@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "homepage": "",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.6",
+    "font-awesome": "~4.6.3",
+    "animate.css": "~3.5.2",
+    "Ionicons": "ionicons#~2.0.1",
+    "AdminLTE": "admin-lte#~2.3.3"
+  }
+}

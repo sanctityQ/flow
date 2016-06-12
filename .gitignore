@@ -2,3 +2,8 @@
 .idea
 target/
 bower_components/
+
+client/node_modules
+client/client/src/vendor/bower_components/
+client/client/build
+client/log/
