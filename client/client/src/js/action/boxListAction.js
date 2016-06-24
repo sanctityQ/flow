@@ -1,6 +1,5 @@
 var Reflux = require('reflux');
 var boxListAction = Reflux.createActions([
-  'fetchList',
-  'setCheckboxStyle'
+  'fetchList'
 ]);
 module.exports = boxListAction;

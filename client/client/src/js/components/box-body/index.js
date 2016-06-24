@@ -19,28 +19,17 @@ var BoxBody = React.createClass({
     boxListAction.fetchList();
   },
   componentDidMount: function() {
-    boxListAction.setCheckboxStyle();
+    
   },
   getList: function() {
-    boxListAction.setCheckboxStyle();
     return (
       <div className="box-body no-padding">
-        <div className="mailbox-controls">
-          <button type="button" className="btn btn-default btn-sm checkbox-toggle">
-            <i className="fa fa-square-o"></i>
-          </button>
-          <div className="btn-group">
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-trash-o"></i></button>
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-reply"></i></button>
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-share"></i></button>
-          </div>
-        </div>
         <div className="table-responsive mailbox-messages">
           <table className="table table-hover table-striped">
             <tbody>
               {this.state.boxList.map(function(item, i) {
-                return (<BoxListItem data={item} key={i} />)
-              })}
+                return (<BoxListItem data={item} key={i} onClick={this.props.onClick}/>)
+              }.bind(this))}
             </tbody>
           </table>
         </div>

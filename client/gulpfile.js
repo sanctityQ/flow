@@ -64,6 +64,7 @@ gulp.task('startTest', function () {
 gulp.task('watch', function () {
     livereload.listen();
     gulp.watch([
+        './pid',
         'client/src/**/*.*',
         '!client/src/vendor/**/*.*'
     ], ['copyFont']);
@@ -88,10 +89,17 @@ gulp.task('react', function () {
 		    },
 		    module: {
 		      loaders: [
-		        {test: /\.js$/, loader: "jsx-loader"},
+		        {
+                    test: /\.js$/,
+                    exclude: /node_modules/,
+                    loader: 'babel',
+                    query: {
+                        presets: ['es2015', 'stage-0', 'react']
+                    }
+                },
                 {test: /\.css$/, loader: "style-loader!css-loader"},
                 {test: /\.less$/, loader: "style!css!less"},
-                {test: /\.(woff2|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=50000&name=[path][name].[ext]'},
+                {test: /\.(woff2|woff|svg|eot|ttf)\??.*$/, loader: 'url-loader?limit=60000&name=[path][name].[ext]'},
                 {test: /\.(png|jpg)$/, loader: 'url-loader?limit=8111192&name=[path][name].[ext]'}
 		      ],
 		    }

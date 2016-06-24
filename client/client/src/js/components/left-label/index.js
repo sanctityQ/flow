@@ -7,7 +7,7 @@ var Reflux = require('reflux');
 var leftLabelListStore = require('../../store/leftLabelListStore');
 var leftLabelListAction = require('../../action/leftLabelListAction');
 
-var LeftListItem = require('../left-item/');
+var LeftListItem = require('../left-list-item/');
 
 var Label = React.createClass({
   getInitialState: function() {

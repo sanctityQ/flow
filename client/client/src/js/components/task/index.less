@@ -1,0 +1,68 @@
+
+@font-face {
+  font-family: "HelveticaNeueW01-Thin";
+  src: url("./fonts/HelveticaNeueW01-Thin.woff") format("woff");
+}
+
+::-webkit-scrollbar-button,::-webkit-scrollbar-track-piece,::-webkit-scrollbar-corner,::-webkit-resizer {
+  display: none;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c7c7c7;
+}
+
+.task-panel {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  z-index: 355;
+  -webkit-user-select: none;
+  transition: opacity .4s cubic-bezier(.25, .46, .45, .94);
+  opacity: 1;
+  font-family: "HelveticaNeueW01-Thin", Arial, "Helvetica Neue", Helvetica, sans-serif;
+  .lightbox {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0.96;
+    top: 0;
+    left: 0;
+    z-index: 350;
+    background-color: #fff;
+    transform: translate3d(0, 0, 0);
+  }
+  .task {
+    position: relative;
+    top: 20%;
+    width: 60%;
+    min-width: 800px;
+    margin: 0 auto;
+    z-index: 400;
+    background-color: #fff;
+  }
+  .close-button {
+    position: absolute;
+    top: 100px;
+    right: 50px;
+    cursor: pointer;
+    z-index: 400;
+    opacity: 0;
+    transition: all .2s;
+    .iconfont {
+      font-size: 30px;
+      color: #c7c7c7;
+    }
+  }
+}

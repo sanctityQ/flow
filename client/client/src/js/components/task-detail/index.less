@@ -1,0 +1,96 @@
+.task-details {
+  .title-box {
+    padding: 15px 10px 15px 20px;
+    border: 1px solid #f2f2f2;
+    input {
+      width: 90%;
+      height: 70px;
+      font-size: 55px;
+      line-height: 70px;
+      color: #282828;
+      padding: 15px 0;
+      border: none;
+      outline: medium;
+    }
+    .plus-button {
+      opacity: 0;
+      .iconfont {
+        position: relative;
+        font-size: 40px;
+        color: #09c;
+        top: -6px;
+      }
+    }
+  }
+  .top-level-details {
+    transition: all 200ms;
+    height: 35px;
+    padding: 0;
+    opacity: 0;
+    &.slideDown {
+      opacity: 1;
+      padding-top: 10px;
+    }
+    .folder-selector {
+      min-width: 60px;
+      max-width: 185px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      color: #09c;
+      .placeholder {
+        span {
+          color: #09c;
+          text-transform: uppercase;
+          font-size: 16.5px;
+          white-space: nowrap;
+          cursor: pointer;
+        }
+      }
+      .rct-select {
+        border: none;
+        box-shadow: none;
+        padding-left: 0;
+        &:before {
+          display: none;
+        }
+      }
+    }
+    .time-selector {
+      margin-left: 10px;
+      min-width: 130px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+      color: #282828;
+      .date-text {
+        font-size: 16.5px;
+        cursor: pointer;
+        line-height: 14px;
+        display: inline-block;
+      }
+      .rct-datetime {
+        border: none;
+        box-shadow: none;
+        i.calendar {
+          display: none;
+        }
+        .date-picker {
+          white-space: normal;
+        }
+      }
+    }
+    .grey-seperator {
+      width: 0;
+      height: 15px;
+      border-left-width: 1px;
+      border-left-style: solid;
+      margin: 0 10px;
+      border-color: #f2f2f2;
+    }
+    .iconfont {
+      width: 25px;
+      height: 25px;
+      color: #c7c7c7;
+    }
+  }
+}
