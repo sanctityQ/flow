@@ -1,24 +1,25 @@
 package org.one.xingyun.controllers;
 
 
-import com.sinosoft.one.mvc.web.annotation.Path;
-import com.sinosoft.one.mvc.web.annotation.rest.Get;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
-@Path
+//@Path
+@Controller
 public class IndexController {
 
-  @Get
+//  @Get
+  @RequestMapping(path = "/index",method = RequestMethod.GET)
   public String index(){
-    return "login";
-  }
-
-  @Get
-  public String register(){
-    return "register";
-  }
-
-  public String login(){
+//    return new ModelAndView("index");
     return "index";
   }
+
+//  @Get
+//  public String register(){
+//    return "register";
+//  }
+
 
 }
