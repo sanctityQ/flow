@@ -1,19 +1,26 @@
 package org.one.xingyun.controllers;
 
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import com.sinosoft.one.mvc.web.Invocation;
+import com.sinosoft.one.mvc.web.annotation.Path;
+import com.sinosoft.one.mvc.web.annotation.rest.Get;
+import com.sinosoft.one.mvc.web.resource.ResourceRequired;
 
-//@Path
-@Controller
+@Path
+//@Controller
 public class IndexController {
 
-//  @Get
-  @RequestMapping(path = "/index",method = RequestMethod.GET)
+  @Get({"index",""})
+//  @RequestMapping(path = "/index",method = RequestMethod.GET)
   public String index(){
 //    return new ModelAndView("index");
     return "index";
+  }
+
+  @Get("/**")
+  @ResourceRequired
+  public String resource(Invocation inv){
+    return ":continue";
   }
 
 //  @Get
