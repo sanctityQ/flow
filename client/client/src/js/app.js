@@ -10,7 +10,7 @@ var Register = require('./layout/register');
 var Panel = require('./layout/panel');
 var routers = (
   <Router>
-    <Route path='/' component={Login}></Route>
+    <Route path='/' component={Panel}></Route>
     <Route path='/login' component={Login}></Route>
     <Route path='/register' component={Register}></Route>
     <Route path='/task' component={Panel}></Route>

@@ -1,0 +1,230 @@
+.task-extras {
+  opacity: 0;
+  .tabs>header {
+    height: 60px;
+    display: -webkit-flex;
+    display: -moz-flex;
+    display: -ms-flexbox;
+    display: -ms-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -moz-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-justify-content: flex-start;
+    -moz-justify-content: flex-start;
+    -ms-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-items: stretch;
+    -moz-align-items: stretch;
+    -ms-align-items: stretch;
+    align-items: stretch;
+    -webkit-align-items: center;
+    -moz-align-items: center;
+    -ms-flex-align: center;
+    -ms-align-items: center;
+    align-items: center;
+    .tab-header {
+      width: 200px;
+      height: 100%;
+      vertical-align: middle;
+      display: -webkit-flex;
+      display: -moz-flex;
+      display: -ms-flexbox;
+      display: -ms-flex;
+      display: flex;
+      -webkit-flex-grow: 1;
+      -moz-flex-grow: 1;
+      -ms-flex-grow: 1;
+      flex-grow: 1;
+      .tab-label {
+        line-height: 60px;
+        cursor: pointer;
+        font-size: 14px;
+        color: #09c !important;
+      }
+    }
+  }
+  .tabs>section {
+    height: 350px;
+    overflow: hidden;
+    position: relative;
+    border-width: 1px;
+    border-style: solid;
+    border-color: #f2f2f2 !important;
+    .task-extra {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      width: 100%;
+      display: none;
+      &.selected {
+        display: block;
+      }
+      .inner {
+        position: relative;
+        height: 100%;
+      }
+      &.note {
+        .wallpaper {
+          position: absolute;
+          margin: 10px 30px 0 30px;
+          background-image: linear-gradient(to bottom, rgba(199,199,199,0.4) 1px, transparent 1px);
+          -webkit-background-size: 100% 35px;
+          -moz-background-size: 100% 35px;
+          background-size: 100% 35px;
+          background-position-y: -1px;
+          top: 0;
+          left: 0;
+          width: 94%;
+          height: 100%;
+        }
+        .task-editor {
+          width: 100%;
+          position: absolute;
+          overflow-y: auto;
+          padding: 10px 30px 0 30px;
+          line-height: 35px;
+          -webkit-transition: all .5s cubic-bezier(.25, .46, .45, .94);
+          -moz-transition: all .5s cubic-bezier(.25, .46, .45, .94);
+          -o-transition: all .5s cubic-bezier(.25, .46, .45, .94);
+          transition: all .5s cubic-bezier(.25, .46, .45, .94);
+          font-size: 14px;
+          height: 100%;
+          background: transparent;
+          resize: none;
+          outline: medium;
+          border: none;
+        }
+      }
+      &.files {
+        .main {
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: -ms-flexbox;
+          display: -ms-flex;
+          display: flex;
+          -webkit-flex-direction: column;
+          -moz-flex-direction: column;
+          -ms-flex-direction: column;
+          flex-direction: column;
+          -webkit-flex-grow: 1;
+          -moz-flex-grow: 1;
+          -ms-flex-grow: 1;
+          flex-grow: 1;
+          height: 294px;
+          .upload-files-drag-area {
+            -webkit-flex-grow: 1;
+            -moz-flex-grow: 1;
+            -ms-flex-grow: 1;
+            flex-grow: 1;
+            -webkit-transition: all .2s;
+            -moz-transition: all .2s;
+            -o-transition: all .2s;
+            transition: all .2s;
+            position: relative;
+            border-width: 2px;
+            border-style: dashed;
+            margin: 15px;
+            padding: 18px;
+            text-align: center;
+            height: 74px;
+            border-color: #f2f2f2 !important;
+            color: #999 !important;
+            &:before {
+              position: absolute;
+              content: '拖动文件到此处';
+              text-align: center;
+              width: 100%;
+              top: calc(50% - 22px);
+              left: 0;
+              font-size: 38px;
+              font-family: 'HelveticaNeueW01-Thin',Helvetica,Arial,'Lucida Grande',sans-serif;
+              -webkit-transition: all .3s;
+              -moz-transition: all .3s;
+              -o-transition: all .3s;
+              transition: all .3s;
+            }
+          }
+        }
+        .scroll-wrap {
+          overflow: auto;
+          .file-attachments-list {
+            padding: 0;
+            margin: 0;
+            padding-left: 0;
+            list-style: none;
+          }
+        }
+        .buttons {
+          display: -webkit-flex;
+          display: -moz-flex;
+          display: -ms-flexbox;
+          display: -ms-flex;
+          display: flex;
+          -webkit-flex-shrink: 0;
+          -moz-flex-shrink: 0;
+          -ms-flex-shrink: 0;
+          flex-shrink: 0;
+          -webkit-justify-content: flex-start;
+          -moz-justify-content: flex-start;
+          -ms-justify-content: flex-start;
+          -ms-flex-pack: start;
+          justify-content: flex-start;
+          -webkit-align-items: stretch;
+          -moz-align-items: stretch;
+          -ms-align-items: stretch;
+          align-items: stretch;
+          height: 54px;
+          border-top-width: 1px;
+          border-top-style: solid;
+          border-color: #f2f2f2 !important;
+          .file-input-wrapper {
+            position: relative;
+            line-height: 54px;
+            padding: 0 25px;
+            font-family: 'HelveticaNeueW01-75Bold',Helvetica,Arial,'Lucida Grande',sans-serif;
+            -webkit-font-smoothing: antialiased;
+            font-size: 11px;
+            border-right-width: 1px;
+            border-right-style: solid;
+            border-top-style: solid;
+            border-top-width: 1px;
+            text-align: center;
+            -webkit-align-self: center;
+            -moz-align-self: center;
+            -ms-align-self: center;
+            align-self: center;
+            -webkit-transition: all .5s;
+            -moz-transition: all .5s;
+            -o-transition: all .5s;
+            transition: all .5s;
+            color: #999 !important;
+            border-color: #f2f2f2 !important;
+            background-color: #fff !important;
+            input {
+              position: absolute;
+              top: 0px;
+              left: 0px;
+              width: 100%;
+              height: 100%;
+              margin: 0px;
+              padding: 0px;
+              opacity: 0;
+              cursor: pointer;
+              border: none;
+              outline: none;
+              vertical-align: middle;
+              overflow: hidden;
+              font-size: 15px;
+              width: 100%;
+              background-color: transparent !important;
+            }
+          }
+        }
+      }
+    }
+  }
+}

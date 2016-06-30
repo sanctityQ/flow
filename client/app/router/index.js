@@ -30,5 +30,6 @@ function set(app) {
 function setMap(ctrs) {
     router.get('/', ctrs.index.show);
     router.get('/api/getCrowdList', ctrs.api.getCrowdList);
+    router.get('/api/getTaskList', ctrs.api.getTaskList);
 }
 module.exports = set;

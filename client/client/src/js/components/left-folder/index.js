@@ -7,11 +7,12 @@ var Reflux = require('reflux');
 var leftFolderListStore = require('../../store/leftFolderListStore');
 var leftFolderListAction = require('../../action/leftFolderListAction');
 
-var LeftListItem = require('../left-item/');
+var LeftListItem = require('../left-list-item/');
 
 var Folder = React.createClass({
   getInitialState: function() {
     return {
+      curIndex: 0,
       leftFolderList: []
     };
   },
@@ -19,22 +20,20 @@ var Folder = React.createClass({
   componentWillMount: function() {
     leftFolderListAction.fetchList();
   },
+  handleClick: function(e, index) {
+    this.setState({
+      curIndex: index
+    });
+    this.props.onClick();
+  },
   getList: function() {
     return (
       <div className="box box-solid">
-        <div className="box-header with-border">
-          <h3 className="box-title">Folders</h3>
-          <div className="box-tools">
-            <button type="button" className="btn btn-box-tool" data-widget="collapse">
-              <i className="fa fa-minus"></i>
-            </button>
-          </div>
-        </div>
         <div className="box-body no-padding">
           <ul className="nav nav-pills nav-stacked">
             {this.state.leftFolderList.map(function(item, i) {
-              return (<LeftListItem data={item} key={i}/>)
-            })}
+              return (<LeftListItem isSelected={this.state.curIndex==i} index={i} data={item} key={i} onClick={(e, index)=>(this.handleClick(e, index))}/>)
+            }.bind(this))}
           </ul>
         </div>
       </div>

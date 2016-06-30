@@ -5,14 +5,22 @@ var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
 
 var BoxListItem = React.createClass({
+  getInitialState: function() {
+    return {
+      isChecked: false
+    }
+  },
+  handleCheckboxClick: function(event) {
+    event.stopPropagation();
+    this.setState({
+      isChecked: !this.state.isChecked
+    });
+  },
   render: function() {
     return (
-      <tr>
+      <tr onClick={this.props.onClick}>
         <td>
-          <div className="icheckbox_flat-blue" aria-checked="false" aria-disabled="false">
-            <input type="checkbox" />
-            <ins className="iCheck-helper"></ins>
-          </div>
+          <div className={this.state.isChecked ? 'icheckbox_flat-blue checked' : 'icheckbox_flat-blue'} onClick={this.handleCheckboxClick}></div>
         </td>
         <td className="mailbox-star"><a href="#"><i className="fa fa-star text-yellow"></i></a></td>
         <td className="mailbox-name"><a href="read-mail.html">{this.props.data.name}</a></td>

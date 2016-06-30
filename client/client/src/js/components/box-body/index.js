@@ -9,6 +9,10 @@ var boxListStore = require('../../store/boxListStore');
 var boxListAction = require('../../action/boxListAction');
 
 var BoxBody = React.createClass({
+  defaultListType: 1,
+  getListType: function() {
+    return sessionStorage.getItem('listType') || this.defaultListType
+  },
   getInitialState: function() {
     return {
       boxList: []
@@ -16,31 +20,25 @@ var BoxBody = React.createClass({
   },
   mixins: [Reflux.connect(boxListStore)],
   componentWillMount: function() {
-    boxListAction.fetchList();
+    //页面刷新，重置listType类型
+    sessionStorage.setItem('listType', this.defaultListType);
+    this.updateList();
   },
-  componentDidMount: function() {
-    boxListAction.setCheckboxStyle();
+  handleClick: function() {
+    this.props.onClick();
+  },
+  updateList: function() {
+    boxListAction.fetchList(this.getListType());
   },
   getList: function() {
-    boxListAction.setCheckboxStyle();
     return (
       <div className="box-body no-padding">
-        <div className="mailbox-controls">
-          <button type="button" className="btn btn-default btn-sm checkbox-toggle">
-            <i className="fa fa-square-o"></i>
-          </button>
-          <div className="btn-group">
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-trash-o"></i></button>
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-reply"></i></button>
-            <button type="button" className="btn btn-default btn-sm"><i className="fa fa-share"></i></button>
-          </div>
-        </div>
         <div className="table-responsive mailbox-messages">
           <table className="table table-hover table-striped">
             <tbody>
               {this.state.boxList.map(function(item, i) {
-                return (<BoxListItem data={item} key={i} />)
-              })}
+                return (<BoxListItem data={item} key={i} onClick={this.handleClick}/>)
+              }.bind(this))}
             </tbody>
           </table>
         </div>
