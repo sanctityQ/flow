@@ -27,6 +27,7 @@
     "react-router": "^1.0.0",
     "refetch": "^0.2.1",
     "reflux": "^0.3.0",
+    "request": "^2.72.0",
     "thrift": "^0.9.3",
     "zepto-commonjs": "^1.1.6-beta",
     "zeus-template": "*"

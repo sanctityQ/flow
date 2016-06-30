@@ -9,6 +9,10 @@ var boxListStore = require('../../store/boxListStore');
 var boxListAction = require('../../action/boxListAction');
 
 var BoxBody = React.createClass({
+  defaultListType: 1,
+  getListType: function() {
+    return sessionStorage.getItem('listType') || this.defaultListType
+  },
   getInitialState: function() {
     return {
       boxList: []
@@ -16,10 +20,15 @@ var BoxBody = React.createClass({
   },
   mixins: [Reflux.connect(boxListStore)],
   componentWillMount: function() {
-    boxListAction.fetchList();
+    //页面刷新，重置listType类型
+    sessionStorage.setItem('listType', this.defaultListType);
+    this.updateList();
   },
-  componentDidMount: function() {
-    
+  handleClick: function() {
+    this.props.onClick();
+  },
+  updateList: function() {
+    boxListAction.fetchList(this.getListType());
   },
   getList: function() {
     return (
@@ -28,7 +37,7 @@ var BoxBody = React.createClass({
           <table className="table table-hover table-striped">
             <tbody>
               {this.state.boxList.map(function(item, i) {
-                return (<BoxListItem data={item} key={i} onClick={this.props.onClick}/>)
+                return (<BoxListItem data={item} key={i} onClick={this.handleClick}/>)
               }.bind(this))}
             </tbody>
           </table>

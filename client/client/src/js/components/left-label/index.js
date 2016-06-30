@@ -24,11 +24,6 @@ var Label = React.createClass({
       <div className="box box-solid">
         <div className="box-header with-border">
           <h3 className="box-title">场景</h3>
-          <div className="box-tools">
-            <button type="button" className="btn btn-box-tool" data-widget="collapse">
-              <i className="fa fa-minus"></i>
-            </button>
-          </div>
         </div>
         <div className="box-body no-padding">
           <ul className="nav nav-pills nav-stacked">
@@ -36,6 +31,9 @@ var Label = React.createClass({
               return (<LeftListItem data={item} key={i}/>)
             })}
           </ul>
+          <div className="label-new-icon" onClick={this.props.onCreateLabel}>
+            <i className="iconfont icon-zengjia"></i>新建...
+          </div>
         </div>
       </div>
     );

@@ -9,13 +9,17 @@ var BoxHeader = require('../../components/box-header');
 var BoxBody = require('../../components/box-body');
 var Task = require('../../components/task');
 var TaskNew = require('../../components/task-new');
+var LabelNew = require('../../components/left-label-new');
+var classNames = require('classnames');
 
 var Panel = React.createClass({
   getInitialState: function() {
     return {
-      //默认显示的类型列表
-      listType: 1,
-      isShowModal: false
+      isShowModal: false,
+      isCreateLabel: false,
+      bounceOutLeft: false,
+      bounceInLeft: false,
+      clickCount: 0
     };
   },
   handleListItemClick: function() {
@@ -33,26 +37,42 @@ var Panel = React.createClass({
       isShowModal: false
     });
   },
-  toggleListByType: function(e, type) {
+  toggleListByType: function() {
+    this.refs.boxBody.updateList();
+  },
+  createLabelDialog: function() {
     this.setState({
-      listType: type
+      isCreateLabel: true
     });
+  },
+  closeLabelDialog: function() {
+    this.setState({
+      isCreateLabel: false
+    });
+  },
+  handleHeaderClick: function(clickCount) {
+    this.setState({
+      bounceOutLeft: clickCount % 2 == 0,
+      bounceInLeft: clickCount % 2 !== 0,
+      clickCount: ++clickCount
+    })
   },
   render: function() {
     return (
       <div className="wrapper skin-blue sidebar-collapse">
-        <Header />
+        <Header onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
         <div className="content-wrapper">
           <section className="content">
             {this.state.isShowModal ? <Task onCloseBtnClick={this.handleCloseBtnClick}/> : null}
+            {this.state.isCreateLabel ? <LabelNew onCloseBtnClick={this.closeLabelDialog}/> : null}
             <div className="row">
-              <div className="col-md-3">
+              <div className={classNames('col-md-3', 'animated', {'bounceOutLeft': this.state.bounceOutLeft, 'bounceInLeft': this.state.bounceInLeft})}>
                 <Folder onClick={this.toggleListByType}/>
-                <Label onClick={this.toggleListByType}/>
+                <Label onClick={this.toggleListByType} onCreateLabel={this.createLabelDialog}/>
               </div>
-              <div className="col-md-9">
+              <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
                 {["延期", "今日", "昨日"].map(function(item, index) {
-                  return (<div className="box box-primary box-item" key={index} listType={this.state.listType}><BoxHeader title={item} /><BoxBody onClick={this.handleListItemClick} /></div>)
+                  return (<div className="box box-primary box-item" key={index} ><BoxHeader title={item} /><BoxBody ref="boxBody" onClick={this.handleListItemClick} /></div>)
                 }.bind(this))}
               </div>
             </div>

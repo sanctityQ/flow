@@ -9,7 +9,7 @@ var Header = React.createClass({
     return (
       <header className="main-header">
         <nav className="navbar navbar-static-top">
-          <a href="#" className="sidebar-toggle" data-toggle="offcanvas" role="button">
+          <a href="javascript:;" className="sidebar-toggle" onClick={this.props.onHeaderClick}>
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>

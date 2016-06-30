@@ -23,7 +23,7 @@ gulp.task('start', function () {
     gulp.src('conf/dev/index.js')
         .pipe(gulp.dest('conf'));
     nodemon({
-        script: './app/bootSrtap.js',
+        script: './app/bootStrap.js',
         ext: 'js',
         execMap: {
             js: 'node --harmony'
@@ -44,7 +44,7 @@ gulp.task('startTest', function () {
     gulp.src('conf/test/index.js')
         .pipe(gulp.dest('conf'));
     nodemon({
-        script: './app/bootSrtap.js',
+        script: './app/bootStrap.js',
         ext: 'js',
         execMap: {
             js: 'node --harmony'
