@@ -18,7 +18,6 @@ public class UserService {
   private static final int SALT_SIZE = 8;
 
   public void register(User user, String plainPassword) {
-
     encryptPassword(user, plainPassword);
     userRepository.save(user);
   }
