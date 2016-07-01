@@ -19,10 +19,12 @@ public class UserController {
   private UserService userService;
 
   @Post("register")
-  public String register(User user,@Param("plainPassword") String plainPassword){
+  public String register(@Param("user") User user, @Param("plainPassword") String plainPassword) {
     logger.debug(user.getMobile());
-    userService.register(user,plainPassword);
+    userService.register(user, plainPassword);
     return "register";
   }
+
+
 
 }

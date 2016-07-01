@@ -1,12 +1,15 @@
 package org.one.xingyun.user.domain;
 
+import org.apache.commons.lang.StringUtils;
+import org.hibernate.annotations.Type;
+import org.joda.time.DateTime;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "user")
@@ -28,9 +31,16 @@ public class User {
 
   private String password;
 
-  private String headImgUrl;
+  private String headImgUrl = StringUtils.EMPTY;
 
-  private String plainPassword;
+
+  @Column(name = "c_time")
+  @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+  private DateTime createTime;
+
+  @Column(name = "m_time")
+  @Type(type = "org.joda.time.contrib.hibernate.PersistentDateTime")
+  private DateTime modifyTime;
 
 
   public Long getId() {
@@ -55,7 +65,7 @@ public class User {
     this.nickName = nickName;
   }
 
-  @Column(name = "mobile")
+  @Column(name = "mobile", unique = true)
   public String getMobile() {
     return mobile;
   }
@@ -64,7 +74,7 @@ public class User {
     this.mobile = mobile;
   }
 
-  @Column(name = "email")
+  @Column(name = "email", unique = true)
   public String getEmail() {
     return email;
   }
@@ -100,13 +110,20 @@ public class User {
     this.headImgUrl = headImgUrl;
   }
 
-
-  @Transient
-  public String getPlainPassword() {
-    return plainPassword;
+  public DateTime getCreateTime() {
+    return createTime;
   }
 
-  public void setPlainPassword(String plainPassword) {
-    this.plainPassword = plainPassword;
+  public void setCreateTime(DateTime createTime) {
+    this.createTime = createTime;
+  }
+
+
+  public DateTime getModifyTime() {
+    return modifyTime;
+  }
+
+  public void setModifyTime(DateTime modifyTime) {
+    this.modifyTime = modifyTime;
   }
 }
