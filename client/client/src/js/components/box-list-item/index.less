@@ -1,1 +1,75 @@
 @import "../../../vendor/plugins/iCheck/flat/blue.css";
+
+.list-item {
+  background-color: #fff;
+  &:hover {
+    background-color: #f5f5f5;
+  }
+  &:nth-of-type(odd) {
+    background-color: #f9f9f9;
+  }
+  >span {
+    display: inline-block;
+    padding: 8px;
+    line-height: 1.42857143;
+    vertical-align: top;
+    border-top: 1px solid #ddd;
+  }
+  &:first-of-type {
+    >span {
+      border: none;
+    }
+  }
+  .mailbox-checkbox {
+    width: 10%;
+  }
+  .mailbox-name {
+    width: 20%;
+  }
+  .mailbox-subject {
+    width: 60%;
+  }
+  .mailbox-operation {
+    width: 10%;
+  }
+}
+.task-view {
+  position: relative;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 1px 1px 10px black;
+  .task {
+    padding: 5px 15px;
+  }
+  .task-details {
+    .title-box {
+      border: none;
+      padding: 0;
+      input {
+        font-size: 55px;
+        line-height: 70px;
+        height: 70px;
+        text-align: left;
+      }
+      .plus-button {
+        display: none;
+      }
+    }
+    .top-level-details {
+      opacity: 1;
+      padding-top: 10px;
+    }
+  }
+  .task-extras {
+    opacity: 1;
+  }
+}
+.task-title {
+  cursor: pointer;
+  padding: 16px 20px;
+  outline: 1px solid transparent;
+  font-size: 16px;
+}

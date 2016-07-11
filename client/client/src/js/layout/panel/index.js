@@ -5,8 +5,8 @@ var Header = require('../../components/header');
 var ContenttHeader = require('../../components/content-header');
 var Folder = require('../../components/left-folder');
 var Label = require('../../components/left-label');
-var BoxHeader = require('../../components/box-header');
-var BoxBody = require('../../components/box-body');
+
+var Box = require('../../components/box');
 var Task = require('../../components/task');
 var TaskNew = require('../../components/task-new');
 var LabelNew = require('../../components/left-label-new');
@@ -38,7 +38,7 @@ var Panel = React.createClass({
     });
   },
   toggleListByType: function() {
-    this.refs.boxBody.updateList();
+    this.refs.box.getBoxList();
   },
   createLabelDialog: function() {
     this.setState({
@@ -71,9 +71,7 @@ var Panel = React.createClass({
                 <Label onClick={this.toggleListByType} onCreateLabel={this.createLabelDialog}/>
               </div>
               <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
-                {["延期", "今日", "昨日"].map(function(item, index) {
-                  return (<div className="box box-primary box-item" key={index} ><BoxHeader title={item} /><BoxBody ref="boxBody" onClick={this.handleListItemClick} /></div>)
-                }.bind(this))}
+                <Box ref="box"/>
               </div>
             </div>
             <TaskNew onClick={this.handleTaskNewClick}/>

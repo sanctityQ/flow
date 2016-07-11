@@ -1,5 +1,6 @@
 var Reflux = require('reflux');
 var leftLabelListAction = Reflux.createActions([
-  'fetchList'
+  'fetchList',
+  'saveLabel'
 ]);
 module.exports = leftLabelListAction;

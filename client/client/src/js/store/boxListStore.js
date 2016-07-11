@@ -4,7 +4,7 @@ window.$ = require('zepto-commonjs');
 
 var boxListStore = Reflux.createStore({
   listenables: [boxListAction],
-  boxList: [],
+  boxItemList: [],
   onFetchList: function(listType) {
     var data = [{
       name: '石建国',
@@ -23,9 +23,9 @@ var boxListStore = Reflux.createStore({
       time: '15分钟前'
     }];
 
-    this.boxList = data;
+    this.boxItemList = data;
     this.trigger({
-      boxList: this.boxList
+      boxItemList: this.boxItemList
     });
   }
 });

@@ -6,6 +6,15 @@ var leftLabelListStore = Reflux.createStore({
   leftLabelList: [],
   onSetCheckboxStyle: function() {
   },
+  onSaveLabel: function(labelTitle) {
+    this.leftLabelList.push({
+      className: 'fa fa-circle-o text-red',
+      text: labelTitle
+    });
+    this.trigger({
+      leftLabelList: this.leftLabelList
+    });
+  },
   onFetchList: function() {
     var data = [{
       className: 'fa fa-circle-o text-red',

@@ -32,14 +32,32 @@
   outline: 1px solid transparent;
 }
 .label-new-dialog-body {
+  position: relative;
   padding: 24px 24px 12px;
+  &.warned {
+    input {
+      box-shadow: inset 0 -1px 0 #d23f31;
+    }
+    .warn {
+      opacity: 1;
+    }
+  }
   input {
     width: 100%;
     border: none;
-    box-shadow: inset 0 -1px 0 #d23f31;
+    box-shadow: inset 0 -1px 0 #000;
     padding-right: 18px;
     outline: medium;
     margin-bottom: 20px;
+  }
+  .warn {
+    position: absolute;
+    display: inline-block;
+    width: 18px;
+    height: 18px;
+    right: 24px;
+    opacity: 0;
+    background: url('./warning.png');
   }
 }
 .label-new-dialog-ctrl {

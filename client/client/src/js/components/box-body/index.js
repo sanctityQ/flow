@@ -8,6 +8,9 @@ var BoxListItem = require('../box-list-item');
 var boxListStore = require('../../store/boxListStore');
 var boxListAction = require('../../action/boxListAction');
 
+var TaskDetail = require('../task-detail');
+var TaskExtra = require('../task-extra');
+
 var BoxBody = React.createClass({
   defaultListType: 1,
   getListType: function() {
@@ -15,17 +18,20 @@ var BoxBody = React.createClass({
   },
   getInitialState: function() {
     return {
-      boxList: []
+      boxItemList: [],
+      isShowTaskView: false
     };
   },
   mixins: [Reflux.connect(boxListStore)],
   componentWillMount: function() {
     //页面刷新，重置listType类型
-    sessionStorage.setItem('listType', this.defaultListType);
-    this.updateList();
+    // sessionStorage.setItem('listType', this.defaultListType);
+    // this.updateList();
   },
   handleClick: function() {
-    this.props.onClick();
+    this.setState({
+      isShowTaskView: !this.state.isShowTaskView
+    });
   },
   updateList: function() {
     boxListAction.fetchList(this.getListType());
@@ -34,13 +40,13 @@ var BoxBody = React.createClass({
     return (
       <div className="box-body no-padding">
         <div className="table-responsive mailbox-messages">
-          <table className="table table-hover table-striped">
-            <tbody>
-              {this.state.boxList.map(function(item, i) {
-                return (<BoxListItem data={item} key={i} onClick={this.handleClick}/>)
+          <div className="table table-hover table-striped">
+            <div>
+              {this.props.itemList.map(function(item, i) {
+                return (<BoxListItem data={item} key={i} />)
               }.bind(this))}
-            </tbody>
-          </table>
+            </div>
+          </div>
         </div>
       </div>
     );
