@@ -24,7 +24,7 @@ var TaskNew = React.createClass({
           onClick={this.handleClick} 
           onMouseEnter={this.handleMouseEnter} 
           onMouseLeave={this.handleMouseLeave}>
-          <i className="iconfont icon-zengjia"></i>
+          <i className="iconfont icon-iconfontadd"></i>
         </div>
       </div>
     )

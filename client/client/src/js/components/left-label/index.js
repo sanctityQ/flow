@@ -32,7 +32,7 @@ var Label = React.createClass({
             })}
           </ul>
           <div className="label-new-icon" onClick={this.props.onCreateLabel}>
-            <i className="iconfont icon-zengjia"></i>新建...
+            <i className="iconfont icon-iconfontadd"></i>新建...
           </div>
         </div>
       </div>

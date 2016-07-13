@@ -32,7 +32,7 @@ var TaskDetail = React.createClass({
         <div className="title-box">
           <input type="text" defaultValue={this.props.placeholder||""} placeholder="任务标题" autofocus="autofocus" className="title" onKeyUp={this.handleNextStep}/>
           <span className="plus-button" style={{opacity: this.state.opacity}}>
-            <i className="iconfont icon-zengjia"></i>
+            <i className="iconfont icon-iconfontadd"></i>
           </span>
         </div>
         <div ref="nextStep" className={classNames('top-level-details', {slideDown: this.state.isShowNextStep})}>

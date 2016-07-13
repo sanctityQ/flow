@@ -38,10 +38,19 @@
         white-space: nowrap;
         box-sizing: border-box;
       }
+      .iconfont {
+        transform: rotate(0);
+        &:before {
+          content: "\e604";
+        }
+      }
     }
-    i.iconfont {
+    .iconfont {
       color: #fff;
       font-size: 20px;
+      display: inline-block;
+      transition: all .3s;
+      transform: rotate(-180deg);
     }
   }
 }
