@@ -1,11 +1,11 @@
 .mailbox-operation {
   position: absolute;
-  right: 0;
+  right: 20%;
   top: 6px;
   >span {
     display: inline-block;
-    width: 30px;
-    opacity: 0;
+    width: 40px;
+    opacity: 1;
     transition: all .5s;
     cursor: pointer;
     .iconfont {
@@ -22,5 +22,31 @@
         color: #33ac71;
       }
     }
+    .icon-shijian {
+      position: absolute;
+    }
   }
+  .delay {
+    position: relative;
+    .rct-form-control {
+      box-shadow: none;
+      border: none;
+    }
+    .icon.calendar {
+      display: none;
+    }
+    .rct-datetime {
+      width: 100%;
+      background: transparent;
+      padding-left: 0;
+    }
+    .date-text {
+      width: 14px;
+      overflow: hidden;
+      font-size: 0;
+    }
+  }
+}
+.table-responsive {
+  overflow-x: visible;
 }

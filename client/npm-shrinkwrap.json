@@ -2462,6 +2462,11 @@
         }
       }
     },
+    "whatwg-fetch": {
+      "version": "1.0.0",
+      "from": "whatwg-fetch@*",
+      "resolved": "http://registry.npm.taobao.org/whatwg-fetch/download/whatwg-fetch-1.0.0.tgz"
+    },
     "zepto-commonjs": {
       "version": "1.1.6-beta",
       "from": "http://registry.npm.taobao.org/zepto-commonjs/download/zepto-commonjs-1.1.6-beta.tgz",

@@ -46,10 +46,12 @@ var ListOperator = React.createClass({
           onClick={this.handlePin}>
           <i className="iconfont icon-pin"></i>
         </span>
-        <span className={classNames({'selected': this.state.isDelayed})} title="延后至..." 
+        <span className={classNames('delay', {'selected': this.state.isDelayed})} title="延后至..." 
           onClick={this.handleDelay}>
           <i className="iconfont icon-shijian"></i>
-          {this.state.isShowDatepicker ? <Datepicker onChange={(value) => this.setState({ normal: value })}/> : null}
+          <Datepicker
+            onChange={(value) => this.setState({ normal: value })}
+            value="16" />
         </span>
         <span className={classNames({'selected': this.state.isCompleted})} title="标为处理完毕" 
           onClick={this.handleComplete}>
