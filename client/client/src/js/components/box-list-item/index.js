@@ -7,60 +7,45 @@ var Reflux = require('reflux');
 var TaskDetail = require('../task-detail');
 var TaskExtra = require('../task-extra');
 var Operator = require('../list-operator');
+var classNames = require('classnames');
 
 var BoxListItem = React.createClass({
-  getInitialState: function() {
+  getInitialState() {
     return {
-      isChecked: false,
       isShowTaskView: false,
-      isPined: false,
-      isDelayed: false,
-      isCompleted: false
+      active: true
     }
   },
-  handleCheckboxClick: function(event) {
-    event.stopPropagation();
-    this.setState({
-      isChecked: !this.state.isChecked
-    });
-  },
-  toggleTaskView: function() {
+  toggleTaskView() {
     this.setState({
       isShowTaskView: !this.state.isShowTaskView
     });
   },
-  handleChange: function() {
-
+  handlePin() {
+    this.setState({active: false});
   },
-  handlePin: function(event) {
-    event.stopPropagation();
-    this.setState({
-      isPined: !this.state.isPined
-    });
-  },
-  handleDelay: function(event) {
-    event.stopPropagation();
+  handleDelay() {
     this.setState({
       isDelayed: !this.state.isDelayed
     });
   },
-  handleComplete: function(event) {
-    event.stopPropagation();
-    this.setState({
-      isCompleted: !this.state.isCompleted
-    });
+  handleComplete() {
+    this.setState({active: false});
   },
-  handleCategory: function(event) {
+  handleCategory(event) {
     event.stopPropagation();
   },
-  render: function() {
+  render() {
     if (this.state.isShowTaskView) {
       return (
         <div className="task-view">
           <div className="task">
             <div className="task-title" onClick={this.toggleTaskView}>
               <b>{this.props.data.title}</b> - {this.props.data.abstract}
-              <Operator />
+              <Operator
+                onPin={()=>{this.handlePin()}} 
+                onDelay={()=>{this.handleDelay()}} 
+                onComplete={()=>{this.handleComplete()}}/>
             </div>
             <TaskDetail onChange={this.handleChange} placeholder={this.props.data.title}/>
             <TaskExtra />
@@ -69,14 +54,16 @@ var BoxListItem = React.createClass({
       );
     } else {    
       return (
-        <div onClick={this.toggleTaskView} className="list-item">
-          <span className="mailbox-checkbox">
-            <div className={this.state.isChecked ? 'icheckbox_flat-blue checked' : 'icheckbox_flat-blue'} onClick={this.handleCheckboxClick}></div>
-          </span>
+        <div ref="list" onClick={this.toggleTaskView} className={classNames('list-item', {'active': this.state.active})}>
+          <span className="mailbox-avatar" title={this.props.data.name.slice(0, 1)}></span>
           <span className="mailbox-name"><a href="read-mail.html">{this.props.data.name}</a></span>
-          <span className="mailbox-subject"><b>{this.props.data.title}</b> - {this.props.data.abstract}
+          <span className="mailbox-subject">
+            <b>{this.props.data.title}</b> - {this.props.data.abstract}
           </span>
-          <Operator />
+          <Operator
+            onPin={()=>{this.handlePin()}} 
+            onDelay={()=>{this.handleDelay()}} 
+            onComplete={()=>{this.handleComplete()}}/>
         </div>
       );
     }

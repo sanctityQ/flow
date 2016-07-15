@@ -1,38 +1,42 @@
-/**
- * @file api.js
- * @desc api控制器
- * @author xiaoguang01
- * @date 2015/11/2
- */
-var request = require('request');
+'use strict';
+
+let request = require('request');
 
 module.exports = {
     //成员列表
     getMemberList: function *() {
       var result = [{
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 1
       }, {
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 2
       }, {
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 3
       }, {
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 4
       }, {
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 5
       }, {
         avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-        name: '石建国' + Date.now()
+        name: '石建国',
+        id: 6
       }];
       
       yield this.api(result);
     },
     //任务列表
     getTaskList: function *() {
+      let listType = this.query.listType;
+
       var result = [{
         type: '今天',
         data: [{
@@ -94,13 +98,16 @@ module.exports = {
     getStageList: function *() {
       var result = [{
         className: 'fa fa-circle-o text-red',
-        text: ' 个人'
+        text: ' 个人',
+        type: 11
       }, {
         className: 'fa fa-circle-o text-yellow',
-        text: ' 家庭'
+        text: ' 家庭',
+        type: 12
       }, {
         className: 'fa fa-circle-o text-light-blue',
-        text: ' 工作'
+        text: ' 工作',
+        type: 13
       }];
       yield this.api(result);
     },

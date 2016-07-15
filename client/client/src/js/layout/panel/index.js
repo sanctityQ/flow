@@ -19,7 +19,8 @@ var Panel = React.createClass({
       isCreateLabel: false,
       bounceOutLeft: false,
       bounceInLeft: false,
-      clickCount: 0
+      clickCount: 0,
+      skin: 'skin-blue'
     };
   },
   handleListItemClick: function() {
@@ -57,9 +58,19 @@ var Panel = React.createClass({
       clickCount: ++clickCount
     })
   },
+  changeSkin() {
+    let type2color = {
+      '1': 'skin-blue',
+      '2': 'skin-orange',
+      '3': 'skin-green'
+    };
+    let listType = sessionStorage.getItem('listType');
+
+    return this.setState({skin: type2color[listType] || 'skin-blue'})
+  },
   render: function() {
     return (
-      <div className="wrapper skin-blue sidebar-collapse">
+      <div className={classNames('wrapper', 'sidebar-collapse', this.state.skin)} onClick={this.changeSkin}>
         <Header onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
         <div className="content-wrapper">
           <section className="content">

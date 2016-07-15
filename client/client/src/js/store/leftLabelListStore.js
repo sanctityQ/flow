@@ -1,5 +1,6 @@
-var Reflux = require('reflux');
-var leftLabelListAction = require('../action/leftLabelListAction');
+import 'whatwg-fetch';
+import Reflux from 'reflux';
+import leftLabelListAction from '../action/leftLabelListAction';
 
 var leftLabelListStore = Reflux.createStore({
   listenables: [leftLabelListAction],
@@ -16,19 +17,13 @@ var leftLabelListStore = Reflux.createStore({
     });
   },
   onFetchList: function() {
-    var data = [{
-      className: 'fa fa-circle-o text-red',
-      text: ' 个人'
-    }, {
-      className: 'fa fa-circle-o text-yellow',
-      text: ' 家庭'
-    }, {
-      className: 'fa fa-circle-o text-light-blue',
-      text: ' 工作'
-    }];
-    this.leftLabelList = data;
-    this.trigger({
-      leftLabelList: this.leftLabelList
+    fetch('/api/getStageList')
+    .then(response=>response.json())
+    .then((data)=>{
+      this.leftLabelList = data;
+      this.trigger({
+        leftLabelList: this.leftLabelList
+      });
     });
   }
 });

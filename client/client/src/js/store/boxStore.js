@@ -1,70 +1,18 @@
-var Reflux = require('reflux');
-var boxAction = require('../action/boxAction');
-window.$ = require('zepto-commonjs');
+import 'whatwg-fetch';
+import Reflux from 'reflux';
+import boxAction from '../action/boxAction';
 
 var boxStore = Reflux.createStore({
   listenables: [boxAction],
   boxList: [],
-  onFetchList: function(listType) {
-    var result = [{
-      type: '今天',
-      data: [{
-        name: '石建国',
-        title: ' h5邀请好友' + listType,
-        abstract: 'h5邀请好友微信分享功能',
-        time: '5分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '10分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '15分钟前'
-      }]
-    }, {
-      type: '昨天',
-      data: [{
-        name: '石建国',
-        title: ' h5邀请好友' + listType,
-        abstract: 'h5邀请好友微信分享功能',
-        time: '5分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '10分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '15分钟前'
-      }]
-    }, {
-      type: '前天',
-      data: [{
-        name: '石建国',
-        title: ' h5邀请好友' + listType,
-        abstract: 'h5邀请好友微信分享功能',
-        time: '5分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '10分钟前'
-      }, {
-        name: '石建国',
-        title: ' h5邀请好友',
-        abstract: 'h5邀请好友微信分享功能',
-        time: '15分钟前'
-      }]
-    }];
-
-    this.boxList = result;
-    this.trigger({
-      boxList: this.boxList
+  onFetchList(listType) {
+    fetch('/api/getTaskList?listType=' + listType)
+    .then(response=>response.json())
+    .then((data)=>{
+      this.boxList = data;
+      this.trigger({
+        boxList: this.boxList
+      });
     });
   }
 });

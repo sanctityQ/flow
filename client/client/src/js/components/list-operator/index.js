@@ -19,12 +19,14 @@ var ListOperator = React.createClass({
   },
   handlePin: function(event) {
     event.stopPropagation();
+    this.props.onPin();
     this.setState({
       isPined: !this.state.isPined
     });
   },
   handleDelay: function(event) {
     event.stopPropagation();
+    this.props.onDelay();
     this.setState({
       isDelayed: !this.state.isDelayed,
       isShowDatepicker: true
@@ -32,6 +34,7 @@ var ListOperator = React.createClass({
   },
   handleComplete: function(event) {
     event.stopPropagation();
+    this.props.onComplete();
     this.setState({
       isCompleted: !this.state.isCompleted
     });

@@ -1,6 +1,7 @@
 @import "../../../vendor/plugins/iCheck/flat/blue.css";
 
 .list-item {
+  display: none;
   position: relative;
   background-color: #fff;
   &:hover {
@@ -14,10 +15,13 @@
   &:nth-of-type(odd) {
     background-color: #f9f9f9;
   }
+  &.active {
+    display: block;
+  }
   >span {
     display: inline-block;
     padding: 8px;
-    line-height: 1.42857143;
+    line-height: 30px;
     vertical-align: top;
     border-top: 1px solid #ddd;
   }
@@ -26,8 +30,25 @@
       border: none;
     }
   }
-  .mailbox-checkbox {
+  .mailbox-avatar {
     width: 10%;
+    &:after {
+      display: inline-block;
+      position: relative;
+      height: 30px;
+      width: 30px;
+      line-height: 30px;
+      border: none;
+      border-radius: 50%;
+      -webkit-user-drag: none;
+      background-color: #03a9f4;
+      box-sizing: content-box;
+      cursor: pointer;
+      outline: none;
+      text-align: center;
+      color: #fff;
+      content: attr(title);
+    }
   }
   .mailbox-name {
     width: 20%;

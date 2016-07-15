@@ -28,8 +28,10 @@ var TaskDetail = React.createClass({
 
     this.props.onChange(!value.length);
   },
-  showMemberMenu: function() {
-    this.refs.menu.open();
+  changeInvolveMember(list) {
+    this.setState({
+      involveMemberList: list
+    });
   },
   render: function() {
     return (
@@ -42,9 +44,12 @@ var TaskDetail = React.createClass({
         </div>
         <div ref="nextStep" className={classNames('top-level-details', {slideDown: this.state.isShowNextStep})}>
           <span className="folder-selector">
-            <Select grid={{width:1/8}}
+            <Select 
+              grid={{width:1/8}}
               placeholder="选择场景"
-              data={["中国", "美国", "俄罗斯", "德国", "日本", "法国", "英格兰"]} />
+              optionTpl="<span data-type={type}>{text}</span>"
+              valueTpl="<span data-type={type}>{text}</span>"
+              fetch={"/api/getStageList"}/>
           </span>
           <span className="time-selector">
             <Datepicker
@@ -52,17 +57,10 @@ var TaskDetail = React.createClass({
               value="2015-06-21 17:24:03" />
           </span>
           <span className="more-selector">
-            <ul className="involve-members clearfix">
-              <li className="involve-member">
-                <img className="avatar" src="https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100" />
-              </li>
-              <li className="involve-member-add">
-                <a className="add-involvement-handler clearfix" onClick={this.showMemberMenu}>
-                  <span className="iconfont icon-iconfontadd" title="添加参与者"></span> 
-                </a>
-                <MemberMenu ref="menu"/>
-              </li>
-            </ul>
+            <MemberMenu onChange={this.changeInvolveMember} defaultMember={[{
+              avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
+              name: '石建国',
+              id: 1}]} />
           </span>
         </div>
       </div>

@@ -12,12 +12,19 @@ var LeftListItem = require('../left-list-item/');
 var Label = React.createClass({
   getInitialState: function() {
     return {
+      curIndex: 0,
       leftLabelList: []
     };
   },
   mixins: [Reflux.connect(leftLabelListStore)],
   componentWillMount: function() {
     leftLabelListAction.fetchList();
+  },
+  handleClick: function(e, index) {
+    this.setState({
+      curIndex: index
+    });
+    this.props.onClick();
   },
   getList: function() {
     return (
@@ -27,8 +34,13 @@ var Label = React.createClass({
         </div>
         <div className="box-body no-padding">
           <ul className="nav nav-pills nav-stacked">
-            {this.state.leftLabelList.map(function(item, i) {
-              return (<LeftListItem data={item} key={i}/>)
+            {this.state.leftLabelList.map((item, i)=>{
+              return (
+                <LeftListItem 
+                  isSelected={this.state.curIndex==i} 
+                  index={i} data={item} key={i}
+                  onClick={(e, index)=>(this.handleClick(e, index))} />
+              )
             })}
           </ul>
           <div className="label-new-icon" onClick={this.props.onCreateLabel}>

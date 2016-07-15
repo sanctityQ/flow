@@ -49,7 +49,7 @@ function setMap(ctrs) {
     router.get('/api/getCategoryList', ctrs.api.getCategoryList);
 
     //任务列表
-    router.get('/api/getTastList', ctrs.api.getTastList);
+    router.get('/api/getTaskList', ctrs.api.getTaskList);
     // //创建任务
     // router.post('/api/createTask', ctrs.api.createTask);
     // //获取任务信息
