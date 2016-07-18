@@ -3,19 +3,27 @@ require("!style!css!less!./index.less");
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
+var classNames = require('classnames');
 
 var LeftListItem = React.createClass({
-  handleClick: function(e, listType) {
-    sessionStorage.setItem('listType', listType);
-    this.props.onClick(e, this.props.index);
+  getInitialState() {
+    return {
+      active: false
+    }
   },
-  render: function() {
+  handleClick(event, item) {
+    event.data = {typeValue: item.type, typeName: item.text};
+    this.setState({active: !this.state.active});
+  },
+  render() {
+    let item = this.props.data.self;
+    let parentItem = this.props.data.parent;
     return (
-      <li className={this.props.isSelected ? 'active' : ''} onClick={(e)=>(this.handleClick(e, this.props.data.type))}>
+      <li className={classNames({'active': item.type == parentItem.currentTaskType})} onClick={(event)=>(this.handleClick(event, item))}>
         <a href="javascript:;">
-          <i className={this.props.data.className}></i>
-          {this.props.data.text}
-          {this.props.data.num ? <span className={this.props.data.numClassName}>{this.props.data.num}</span> : ''}
+          <i className={item.className}></i>
+          {item.text}
+          {item.num ? <span className={item.numClassName}>{item.num}</span> : ''}
         </a>
       </li>
     );

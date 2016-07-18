@@ -20,7 +20,10 @@ var Panel = React.createClass({
       bounceOutLeft: false,
       bounceInLeft: false,
       clickCount: 0,
-      skin: 'skin-blue'
+      //默认皮肤
+      skin: 'skin-blue',
+      //当前选中的列表类型
+      currentTaskType: 1
     };
   },
   handleListItemClick: function() {
@@ -38,8 +41,11 @@ var Panel = React.createClass({
       isShowModal: false
     });
   },
-  toggleListByType: function() {
-    this.refs.box.getBoxList();
+  toggleListByType: function(event) {
+    let eventData = event.data;
+    this.refs.box.getBoxList(eventData);
+    this.changeSkin(eventData.typeValue);
+    this.setState({currentTaskType: eventData.typeValue});
   },
   createLabelDialog: function() {
     this.setState({
@@ -58,31 +64,30 @@ var Panel = React.createClass({
       clickCount: ++clickCount
     })
   },
-  changeSkin() {
+  changeSkin(taskType) {
     let type2color = {
       '1': 'skin-blue',
       '2': 'skin-orange',
       '3': 'skin-green'
     };
-    let listType = sessionStorage.getItem('listType');
 
-    return this.setState({skin: type2color[listType] || 'skin-blue'})
+    return this.setState({skin: type2color[taskType] || 'skin-blue'})
   },
   render: function() {
     return (
-      <div className={classNames('wrapper', 'sidebar-collapse', this.state.skin)} onClick={this.changeSkin}>
+      <div className={classNames('wrapper', 'sidebar-collapse', this.state.skin)}>
         <Header onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
         <div className="content-wrapper">
           <section className="content">
             {this.state.isShowModal ? <Task onCloseBtnClick={this.handleCloseBtnClick}/> : null}
             {this.state.isCreateLabel ? <LabelNew onCloseBtnClick={this.closeLabelDialog}/> : null}
             <div className="row">
-              <div className={classNames('col-md-3', 'animated', {'bounceOutLeft': this.state.bounceOutLeft, 'bounceInLeft': this.state.bounceInLeft})}>
-                <Folder onClick={this.toggleListByType}/>
-                <Label onClick={this.toggleListByType} onCreateLabel={this.createLabelDialog}/>
+              <div onClick={this.toggleListByType} className={classNames('col-md-3', 'animated', {'bounceOutLeft': this.state.bounceOutLeft, 'bounceInLeft': this.state.bounceInLeft})}>
+                <Folder data={{currentTaskType: this.state.currentTaskType}}/>
+                <Label onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType}}/>
               </div>
               <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
-                <Box ref="box"/>
+                <Box data={{currentTaskType: this.state.currentTaskType}} ref="box"/>
               </div>
             </div>
             <TaskNew onClick={this.handleTaskNewClick}/>

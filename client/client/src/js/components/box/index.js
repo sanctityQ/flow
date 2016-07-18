@@ -11,22 +11,16 @@ var boxStore = require('../../store/boxStore');
 var boxAction = require('../../action/boxAction');
 
 var Box = React.createClass({
-  defaultListType: 1,
   getInitialState: function() {
     return {
       boxList: []
     };
   },
   mixins: [Reflux.connect(boxStore)],
-  getListType: function() {
-    return sessionStorage.getItem('listType') || this.defaultListType
-  },
-  getBoxList: function() {
-    boxAction.fetchList(this.getListType());
+  getBoxList: function(eventData) {
+    boxAction.fetchList(eventData ? eventData.typeValue : this.props.data.currentTaskType);
   },
   componentWillMount: function() {
-    //页面刷新，重置listType类型
-    sessionStorage.setItem('listType', this.defaultListType);
     this.getBoxList();
   },
   render: function() {

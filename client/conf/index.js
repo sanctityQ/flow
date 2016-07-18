@@ -59,6 +59,7 @@ module.exports = {
             {host: '192.168.0.227', port: 26379}, 
             {host: '192.168.0.228', port: 26379}, 
             {host: '192.168.0.229', port: 26379}
+            // {host: '127.0.0.1', port: 6379}
         ],
         name: 'resque',
         // enableOfflineQueue: false,

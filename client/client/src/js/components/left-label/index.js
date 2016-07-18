@@ -12,7 +12,6 @@ var LeftListItem = require('../left-list-item/');
 var Label = React.createClass({
   getInitialState: function() {
     return {
-      curIndex: 0,
       leftLabelList: []
     };
   },
@@ -20,30 +19,26 @@ var Label = React.createClass({
   componentWillMount: function() {
     leftLabelListAction.fetchList();
   },
-  handleClick: function(e, index) {
-    this.setState({
-      curIndex: index
-    });
-    this.props.onClick();
+  stopPropagation(event) {
+    event.stopPropagation();
+  },
+  handleCreateLabel(event) {
+    this.stopPropagation(event);
+    this.props.onCreateLabel();
   },
   getList: function() {
     return (
       <div className="box box-solid">
-        <div className="box-header with-border">
+        <div className="box-header with-border" onClick={this.stopPropagation}>
           <h3 className="box-title">场景</h3>
         </div>
         <div className="box-body no-padding">
           <ul className="nav nav-pills nav-stacked">
             {this.state.leftLabelList.map((item, i)=>{
-              return (
-                <LeftListItem 
-                  isSelected={this.state.curIndex==i} 
-                  index={i} data={item} key={i}
-                  onClick={(e, index)=>(this.handleClick(e, index))} />
-              )
+              return (<LeftListItem data={{self: item, parent: this.props.data}} key={i} />)
             })}
           </ul>
-          <div className="label-new-icon" onClick={this.props.onCreateLabel}>
+          <div className="label-new-icon" onClick={(e)=>(this.handleCreateLabel(e))}>
             <i className="iconfont icon-iconfontadd"></i>新建...
           </div>
         </div>
