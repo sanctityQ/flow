@@ -12,8 +12,8 @@ var ListOperator = React.createClass({
   getInitialState: function() {
     return {
       isPined: false,
-      isDelayed: false,
-      isCompleted: false,
+      isSnoozed: false,
+      isDone: false,
       isShowDatepicker: false
     }
   },
@@ -24,19 +24,19 @@ var ListOperator = React.createClass({
       isPined: !this.state.isPined
     });
   },
-  handleDelay: function(event) {
+  handleSnoozed: function(event) {
     event.stopPropagation();
-    this.props.onDelay();
+    this.props.onSnoozed();
     this.setState({
-      isDelayed: !this.state.isDelayed,
+      isSnoozed: !this.state.isSnoozed,
       isShowDatepicker: true
     });
   },
-  handleComplete: function(event) {
+  handleDone: function(event) {
     event.stopPropagation();
-    this.props.onComplete();
+    this.props.onDone();
     this.setState({
-      isCompleted: !this.state.isCompleted
+      isDone: !this.state.isDone
     });
   },
   handleCategory: function(event) {
@@ -49,15 +49,15 @@ var ListOperator = React.createClass({
           onClick={this.handlePin}>
           <i className="iconfont icon-pin"></i>
         </span>
-        <span className={classNames('delay', {'selected': this.state.isDelayed})} title="延后至..." 
-          onClick={this.handleDelay}>
+        <span className={classNames('delay', {'selected': this.state.isSnoozed})} title="延后至..." 
+          onClick={this.handleSnoozed}>
           <i className="iconfont icon-shijian"></i>
           <Datepicker
             onChange={(value) => this.setState({ normal: value })}
             value="16" />
         </span>
-        <span className={classNames({'selected': this.state.isCompleted})} title="标为处理完毕" 
-          onClick={this.handleComplete}>
+        <span className={classNames({'selected': this.state.isDone})} title="标为处理完毕" 
+          onClick={this.handleDone}>
           <i className="iconfont icon-queren"></i>
         </span>
         <span title="移到..." 

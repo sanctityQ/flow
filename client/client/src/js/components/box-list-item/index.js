@@ -24,12 +24,12 @@ var BoxListItem = React.createClass({
   handlePin() {
     this.setState({active: false});
   },
-  handleDelay() {
+  handleSnoozed() {
     this.setState({
-      isDelayed: !this.state.isDelayed
+      isSnoozed: !this.state.isSnoozed
     });
   },
-  handleComplete() {
+  handleDone() {
     this.setState({active: false});
   },
   handleCategory(event) {
@@ -44,8 +44,8 @@ var BoxListItem = React.createClass({
               <b>{this.props.data.title}</b> - {this.props.data.abstract}
               <Operator
                 onPin={()=>{this.handlePin()}} 
-                onDelay={()=>{this.handleDelay()}} 
-                onComplete={()=>{this.handleComplete()}}/>
+                onSnoozed={()=>{this.handleSnoozed()}} 
+                onDone={()=>{this.handleDone()}}/>
             </div>
             <TaskDetail onChange={this.handleChange} placeholder={this.props.data.title}/>
             <TaskExtra />
@@ -62,8 +62,8 @@ var BoxListItem = React.createClass({
           </span>
           <Operator
             onPin={()=>{this.handlePin()}} 
-            onDelay={()=>{this.handleDelay()}} 
-            onComplete={()=>{this.handleComplete()}}/>
+            onSnoozed={()=>{this.handleSnoozed()}} 
+            onDone={()=>{this.handleDone()}}/>
         </div>
       );
     }

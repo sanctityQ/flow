@@ -5,7 +5,7 @@ import leftFolderListAction from '../action/leftFolderListAction';
 var leftFolderListStore = Reflux.createStore({
   listenables: [leftFolderListAction],
   leftFolderList: [],
-  onFetchList: function() {
+  onFetchList() {
     fetch('/api/getCategoryList')
     .then(response=>response.json())
     .then((data)=>{

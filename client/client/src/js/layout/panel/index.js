@@ -23,7 +23,9 @@ var Panel = React.createClass({
       //默认皮肤
       skin: 'skin-blue',
       //当前选中的列表类型
-      currentTaskType: 1
+      currentTaskType: 1,
+      //当前选中的类型文本
+      navbarTitle: '收件箱'
     };
   },
   handleListItemClick: function() {
@@ -45,7 +47,7 @@ var Panel = React.createClass({
     let eventData = event.data;
     this.refs.box.getBoxList(eventData);
     this.changeSkin(eventData.typeValue);
-    this.setState({currentTaskType: eventData.typeValue});
+    this.setState({currentTaskType: eventData.typeValue, navbarTitle: eventData.typeName});
   },
   createLabelDialog: function() {
     this.setState({
@@ -66,17 +68,18 @@ var Panel = React.createClass({
   },
   changeSkin(taskType) {
     let type2color = {
-      '1': 'skin-blue',
-      '2': 'skin-orange',
-      '3': 'skin-green'
+      1: 'skin-blue',
+      2: 'skin-grey',
+      3: 'skin-orange',
+      4: 'skin-green'
     };
 
-    return this.setState({skin: type2color[taskType] || 'skin-blue'})
+    return this.setState({skin: type2color[taskType] || 'skin-grey'})
   },
   render: function() {
     return (
       <div className={classNames('wrapper', 'sidebar-collapse', this.state.skin)}>
-        <Header onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
+        <Header navbarTitle={this.state.navbarTitle} onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
         <div className="content-wrapper">
           <section className="content">
             {this.state.isShowModal ? <Task onCloseBtnClick={this.handleCloseBtnClick}/> : null}
@@ -87,7 +90,7 @@ var Panel = React.createClass({
                 <Label onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType}}/>
               </div>
               <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
-                <Box data={{currentTaskType: this.state.currentTaskType}} ref="box"/>
+                <Box data={{currentTaskType: this.state.currentTaskType, navbarTitle: this.state.navbarTitle}} ref="box"/>
               </div>
             </div>
             <TaskNew onClick={this.handleTaskNewClick}/>

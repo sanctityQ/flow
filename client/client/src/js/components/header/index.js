@@ -15,7 +15,7 @@ var Header = React.createClass({
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
           </a>
-
+          <span className="navbar-title">{this.props.navbarTitle}</span>
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
               <li className="dropdown messages-menu">

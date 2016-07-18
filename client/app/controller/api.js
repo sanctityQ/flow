@@ -92,7 +92,11 @@ module.exports = {
           time: '15分钟前'
         }]
       }];
-      yield this.api(result);
+      if (listType < 2) {
+        yield this.api(result);
+      } else {
+        yield this.api([]);
+      }
     },
     //场景列表
     getStageList: function *() {

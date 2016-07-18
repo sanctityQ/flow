@@ -6,7 +6,7 @@ var Reflux = require('reflux');
 
 var BoxHeader = require('../box-header');
 var BoxBody = require('../box-body');
-
+var BoxEmpty = require('../box-empty');
 var boxStore = require('../../store/boxStore');
 var boxAction = require('../../action/boxAction');
 
@@ -26,14 +26,14 @@ var Box = React.createClass({
   render: function() {
     return (
       <div className="">
-        {this.state.boxList.map(function(item, index) {
+        {this.state.boxList.length ? this.state.boxList.map((item, index)=>{
           return (
             <div className="box box-primary box-item" key={index} >
               <BoxHeader title={item.type} />
               <BoxBody itemList={item.data} ref="boxBody" onClick={this.handleListItemClick} />
             </div>
           )
-        }.bind(this))}
+        }) : <BoxEmpty typeValue={this.props.data.currentTaskType} navbarTitle={this.props.data.navbarTitle} />}
       </div>
     );
   }
