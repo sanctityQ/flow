@@ -90,7 +90,7 @@ var Panel = React.createClass({
                 <Label onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType}}/>
               </div>
               <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
-                <Box data={{currentTaskType: this.state.currentTaskType, navbarTitle: this.state.navbarTitle}} ref="box"/>
+                <Box onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType, navbarTitle: this.state.navbarTitle}} ref="box"/>
               </div>
             </div>
             <TaskNew onClick={this.handleTaskNewClick}/>

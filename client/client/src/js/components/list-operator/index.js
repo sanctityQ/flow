@@ -8,12 +8,15 @@ var classNames = require('classnames');
 var Select = require('rctui/Select');
 var Datepicker = require('rctui/Datepicker');
 
+var CategoryMenu = require('../category-menu');
+
 var ListOperator = React.createClass({
   getInitialState: function() {
     return {
       isPined: false,
       isSnoozed: false,
       isDone: false,
+      isCategory: false,
       isShowDatepicker: false
     }
   },
@@ -41,6 +44,10 @@ var ListOperator = React.createClass({
   },
   handleCategory: function(event) {
     event.stopPropagation();
+    this.refs.categoryMenu.open();
+    this.setState({
+      isCategory: !this.state.isCategory
+    });
   },
   render: function() {
     return (
@@ -49,7 +56,7 @@ var ListOperator = React.createClass({
           onClick={this.handlePin}>
           <i className="iconfont icon-pin"></i>
         </span>
-        <span className={classNames('delay', {'selected': this.state.isSnoozed})} title="延后至..." 
+        <span className={classNames('snoozed', {'selected': this.state.isSnoozed})} title="延后至..." 
           onClick={this.handleSnoozed}>
           <i className="iconfont icon-shijian"></i>
           <Datepicker
@@ -60,9 +67,10 @@ var ListOperator = React.createClass({
           onClick={this.handleDone}>
           <i className="iconfont icon-queren"></i>
         </span>
-        <span title="移到..." 
-          onClick={this.handleCategory}>
+        <span title="移到..." className={classNames({'selected': this.state.isCategory})}
+          onClick={this.handleCategory} onMouseLeave={()=>{this.refs.categoryMenu.close()}}>
           <i className="iconfont icon-more"></i>
+          <CategoryMenu ref="categoryMenu" onCreateLabel={()=>this.props.onCreateLabel()}/>
         </span>
       </div>
     );

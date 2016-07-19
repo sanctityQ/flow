@@ -1,13 +1,18 @@
+* {
+  -webkit-user-select: none;
+}
 .mailbox-operation {
   position: absolute;
   right: 20%;
   top: 10px;
   >span {
+    position: relative;
     display: inline-block;
-    width: 40px;
+    width: 24px;
     opacity: 0;
     transition: all .5s;
     cursor: pointer;
+    outline: transparent;
     .iconfont {
       font-size: 18px;
     }
@@ -21,12 +26,25 @@
       .icon-queren {
         color: #33ac71;
       }
+      &::before {      
+        border-radius: 50%;
+        top: 0;
+        left: -3px;
+        margin: auto;
+        padding: 4px;
+        position: absolute;
+        content: ' ';
+        background-size: 24px 24px;
+        height: 24px;
+        width: 24px;
+        background-color: rgba(0,0,0,.12);
+      }
     }
     .icon-shijian {
       position: absolute;
     }
   }
-  .delay {
+  .snoozed {
     position: relative;
     .rct-form-control {
       box-shadow: none;

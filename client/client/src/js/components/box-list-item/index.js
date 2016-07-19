@@ -3,11 +3,11 @@ require("!style!css!less!./index.less");
 var React = require('react');
 var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
+var classNames = require('classnames');
 
 var TaskDetail = require('../task-detail');
 var TaskExtra = require('../task-extra');
 var Operator = require('../list-operator');
-var classNames = require('classnames');
 
 var BoxListItem = React.createClass({
   getInitialState() {
@@ -38,21 +38,22 @@ var BoxListItem = React.createClass({
   render() {
     if (this.state.isShowTaskView) {
       return (
-        <div className="task-view">
+        <div className={classNames('task-view', {'active': this.state.active})}>
           <div className="task">
             <div className="task-title" onClick={this.toggleTaskView}>
               <b>{this.props.data.title}</b> - {this.props.data.abstract}
               <Operator
                 onPin={()=>{this.handlePin()}} 
                 onSnoozed={()=>{this.handleSnoozed()}} 
-                onDone={()=>{this.handleDone()}}/>
+                onDone={()=>{this.handleDone()}}
+                onCreateLabel={()=>this.props.onCreateLabel()}/>
             </div>
             <TaskDetail onChange={this.handleChange} placeholder={this.props.data.title}/>
             <TaskExtra />
           </div>
         </div>
       );
-    } else {    
+    } else {
       return (
         <div ref="list" onClick={this.toggleTaskView} className={classNames('list-item', {'active': this.state.active})}>
           <span className="mailbox-avatar" title={this.props.data.name.slice(0, 1)}></span>
@@ -63,7 +64,8 @@ var BoxListItem = React.createClass({
           <Operator
             onPin={()=>{this.handlePin()}} 
             onSnoozed={()=>{this.handleSnoozed()}} 
-            onDone={()=>{this.handleDone()}}/>
+            onDone={()=>{this.handleDone()}}
+            onCreateLabel={()=>this.props.onCreateLabel()}/>
         </div>
       );
     }

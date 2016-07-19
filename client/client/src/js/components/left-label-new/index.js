@@ -20,7 +20,16 @@ var LabelNew = React.createClass({
   },
   mixins: [Reflux.connect(labelListStore)],
   saveLabel: function() {
-    if (this.state.labelTitle.length < 1) return;
+    var value = this.state.labelTitle;
+
+    if (value.length < 1) {
+      return this.setState({
+        labelTitle: value,
+        isDisabled: value.length < 1,
+        isWarned: value.length < 1
+      });
+    }
+
     labelListAction.saveLabel(this.state.labelTitle);
     this.props.onCloseBtnClick();
   },

@@ -26,7 +26,6 @@ var BoxEmpty = React.createClass({
       },
       inbox: {
         src: './img/inbox.png',
-        title: '',
         body: ''
       },
       other: {

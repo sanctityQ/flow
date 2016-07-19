@@ -30,7 +30,7 @@ var Box = React.createClass({
           return (
             <div className="box box-primary box-item" key={index} >
               <BoxHeader title={item.type} />
-              <BoxBody itemList={item.data} ref="boxBody" onClick={this.handleListItemClick} />
+              <BoxBody onCreateLabel={()=>this.props.onCreateLabel()} itemList={item.data} ref="boxBody" onClick={this.handleListItemClick} />
             </div>
           )
         }) : <BoxEmpty typeValue={this.props.data.currentTaskType} navbarTitle={this.props.data.navbarTitle} />}

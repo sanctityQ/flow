@@ -30,7 +30,7 @@ var BoxBody = React.createClass({
           <div className="table table-hover table-striped">
             <div>
               {this.props.itemList.map((item, i)=>(
-                <BoxListItem data={item} key={i} />
+                <BoxListItem onCreateLabel={()=>this.props.onCreateLabel()} data={item} key={i} />
               ))}
             </div>
           </div>
