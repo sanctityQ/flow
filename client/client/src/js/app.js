@@ -1,19 +1,20 @@
-require("!style!css!less!../style/common.less");
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Reflux from 'reflux';
+import { Router, Route, Link } from 'react-router';
 
-var React = require('react');
-var ReactDom = require('react-dom');
-var Reflux = require('reflux');
-var Router = require('react-router').Router;
-var Route = require('react-router').Route;
-var Login = require('./layout/login');
-var Register = require('./layout/register');
-var Panel = require('./layout/panel');
-var routers = (
+import Login from './layout/login';
+import Register from './layout/register';
+import Panel from './layout/panel';
+import Tree from './layout/tree';
+
+let routers = (
   <Router>
     <Route path='/' component={Panel}></Route>
     <Route path='/login' component={Login}></Route>
     <Route path='/register' component={Register}></Route>
     <Route path='/task' component={Panel}></Route>
+    <Route path='/tree' component={Tree}></Route>
   </Router>
 );
-ReactDom.render(routers, document.getElementById('content'));
+ReactDOM.render(routers, document.getElementById('content'));

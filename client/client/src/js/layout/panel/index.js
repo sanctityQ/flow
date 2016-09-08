@@ -1,24 +1,27 @@
-require("!style!css!less!./index.less");
+import './index.less';
 
-var React = require('react');
-var Header = require('../../components/header');
-var ContenttHeader = require('../../components/content-header');
-var Folder = require('../../components/left-folder');
-var Label = require('../../components/left-label');
+import React, { Component, PropTypes } from 'react';
+import classNames from 'classnames';
 
-var Box = require('../../components/box');
-var Task = require('../../components/task');
-var TaskNew = require('../../components/task-new');
-var LabelNew = require('../../components/left-label-new');
-var classNames = require('classnames');
+import Box from '../../components/box';
+import Header from '../../components/header';
+import ContenttHeader from '../../components/content-header';
+import Folder from '../../components/left-folder';
+import Label from '../../components/left-label';
+import Task from '../../components/task';
+import TaskNew from '../../components/task-new';
+import LabelNew from '../../components/left-label-new';
 
-var Panel = React.createClass({
-  getInitialState: function() {
-    return {
-      isShowModal: false,
+export default class Panel extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      open: false,
       isCreateLabel: false,
       bounceOutLeft: false,
       bounceInLeft: false,
+      //任务列表是否展开
+      isSpread: false,
       clickCount: 0,
       //默认皮肤
       skin: 'skin-blue',
@@ -27,47 +30,60 @@ var Panel = React.createClass({
       //当前选中的类型文本
       navbarTitle: '收件箱'
     };
-  },
-  handleListItemClick: function() {
+  }
+
+  openCreateTaskDialog() {
     this.setState({
-      isShowModal: !this.state.isShowModal
+      open: true
     });
-  },
-  handleTaskNewClick: function() {
+  }
+
+  closeCreateTaskDialog() {
     this.setState({
-      isShowModal: true
+      open: false
     });
-  },
-  handleCloseBtnClick: function() {
-    this.setState({
-      isShowModal: false
-    });
-  },
-  toggleListByType: function(event) {
+  }
+
+  toggleListByType(event) {
     let eventData = event.data;
+    if (!eventData) return;
     this.refs.box.getBoxList(eventData);
     this.changeSkin(eventData.typeValue);
     this.setState({currentTaskType: eventData.typeValue, navbarTitle: eventData.typeName});
-  },
-  createLabelDialog: function() {
+  }
+
+  createLabelDialog() {
     this.setState({
       isCreateLabel: true
     });
-  },
-  closeLabelDialog: function() {
+  }
+
+  closeLabelDialog() {
     this.setState({
       isCreateLabel: false
     });
-  },
-  handleHeaderClick: function(clickCount) {
+  }
+
+  handleHeaderClick(clickCount) {
     this.setState({
       bounceOutLeft: clickCount % 2 == 0,
       bounceInLeft: clickCount % 2 !== 0,
       clickCount: ++clickCount
-    })
-  },
+    });
+
+    if (!this.state.bounceOutLeft) {
+      setTimeout(() => {
+        this.refs.sidebar.style.display = 'none';
+        this.setState({isSpread: true})
+      }, 500)
+    } else {
+      this.refs.sidebar.style.display = 'block';
+      this.setState({isSpread: false});
+    }
+  }
+
   changeSkin(taskType) {
-    let type2color = {
+    const type2color = {
       1: 'skin-blue',
       2: 'skin-grey',
       3: 'skin-orange',
@@ -75,29 +91,33 @@ var Panel = React.createClass({
     };
 
     return this.setState({skin: type2color[taskType] || 'skin-grey'})
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className={classNames('wrapper', 'sidebar-collapse', this.state.skin)}>
         <Header navbarTitle={this.state.navbarTitle} onHeaderClick={()=>(this.handleHeaderClick(this.state.clickCount))}/>
         <div className="content-wrapper">
           <section className="content">
-            {this.state.isShowModal ? <Task onCloseBtnClick={this.handleCloseBtnClick}/> : null}
-            {this.state.isCreateLabel ? <LabelNew onCloseBtnClick={this.closeLabelDialog}/> : null}
+            <Task 
+              open={this.state.open} 
+              className="react-dialog" 
+              onRequestClose={() => {this.closeCreateTaskDialog()}}
+            />
+            {this.state.isCreateLabel ? <LabelNew onCloseBtnClick={()=>{this.closeLabelDialog()}}/> : null}
             <div className="row">
-              <div onClick={this.toggleListByType} className={classNames('col-md-3', 'animated', {'bounceOutLeft': this.state.bounceOutLeft, 'bounceInLeft': this.state.bounceInLeft})}>
+              <div ref="sidebar" onClick={(e)=>{this.toggleListByType(e)}} className={classNames('col-md-2', 'animated', {'bounceOutLeft': this.state.bounceOutLeft, 'bounceInLeft': this.state.bounceInLeft})}>
                 <Folder data={{currentTaskType: this.state.currentTaskType}}/>
                 <Label onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType}}/>
               </div>
-              <div className={classNames({'col-md-9': !this.state.bounceOutLeft, 'col-md-12': this.state.bounceOutLeft})}>
+              <div className={classNames({'col-md-10': !this.state.isSpread, 'col-md-12': this.state.isSpread})}>
                 <Box onCreateLabel={()=>this.createLabelDialog()} data={{currentTaskType: this.state.currentTaskType, navbarTitle: this.state.navbarTitle}} ref="box"/>
               </div>
             </div>
-            <TaskNew onClick={this.handleTaskNewClick}/>
+            <TaskNew onClick={(e)=>{this.openCreateTaskDialog(e)}}/>
           </section>
         </div>
       </div>
     );
   }
-});
-module.exports = Panel;
+}

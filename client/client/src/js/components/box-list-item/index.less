@@ -1,24 +1,28 @@
 @import "../../../vendor/plugins/iCheck/flat/blue.css";
 
 .list-item {
-  display: none;
   position: relative;
   background-color: #fff;
+  transition: all .5s;
+  &.hide {
+    display: none;
+  }
+  .hidden {
+    display: inline-block !important;
+    visibility: hidden;
+  }
   &:hover {
     background-color: #f5f5f5;
-    .mailbox-operation {
-      >span {
-        opacity: 1;
-      }
-    }
   }
   &:nth-of-type(odd) {
     background-color: #f9f9f9;
   }
-  &.active {
-    display: block;
+  &.open {
+    margin-left: -16px;
+    margin-right: -16px;
+    background-color: #ddd;
   }
-  >span {
+  .list-content >span {
     display: inline-block;
     padding: 8px;
     line-height: 30px;
@@ -54,59 +58,26 @@
     width: 20%;
   }
   .mailbox-subject {
-    width: 70%;
+    width: 65%;
   }
-}
-.task-view {
-  position: relative;
-  display: none;
-  z-index: 100;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background: #fff;
-  box-shadow: 0 0 10px 1px #333;
-  margin: 5px 0 0 0;
-  &.active {
-    display: block;
+  .fa-angle-right, .fa-angle-down {
+    width: 20px;
+    cursor: pointer;
+    text-align: center;
   }
-  .task {
-    padding: 5px 15px;
+  &.indent_1 {
+    padding-left: 0 !important;
   }
-  .task-details {
-    .title-box {
-      border: none;
-      padding: 0;
-      input {
-        font-size: 55px;
-        line-height: 70px;
-        height: 70px;
-        text-align: left;
-      }
-      .plus-button {
-        display: none;
-      }
-    }
-    .top-level-details {
-      opacity: 1;
-      padding-top: 10px;
-    }
+  &.indent_2 {
+    padding-left: 28px !important;
   }
-  .task-extras {
-    opacity: 1;
+  &.indent_3 {
+    padding-left: 56px !important;
   }
-}
-.task-title {
-  position: relative;
-  cursor: pointer;
-  padding: 16px 20px;
-  outline: 1px solid transparent;
-  font-size: 16px;
-  border-bottom: 1px solid #ddd;
-  margin: 0 -15px;
-  .mailbox-operation {
-    >span {
-      opacity: 1;
-    }
+  &.indent_4 {
+    padding-left: 84px !important;
+  }
+  &.indent_5 {
+    padding-left: 112px !important;
   }
 }

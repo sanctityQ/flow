@@ -1,25 +1,26 @@
-require("!style!css!less!./index.less");
+import './index.less';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Reflux from 'reflux';
+import classNames from 'classnames';
 
-var Select = require('rctui/Select');
-var Datepicker = require('rctui/Datepicker');
-var classNames = require('classnames');
+import Select from 'rctui/Select';
+import Datepicker from 'rctui/Datepicker';
+import MemberMenu from '../member-menu';
 
-var MemberMenu = require('../member-menu');
-
-var TaskDetail = React.createClass({
-  getInitialState: function() {
-    return {
+export default class TaskDetail extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
       opacity: 0,
       //是否显示下一步操作
       isShowNextStep: false
     };
-  },
-  handleNextStep: function(e) {
-    var value = e.target.value.replace(/\s+/g, '');
+  }
+
+  handleNextStep(e) {
+    let value = e.target.value.replace(/\s+/g, '');
 
     this.setState({
       isShowNextStep: !!value.length,
@@ -27,17 +28,19 @@ var TaskDetail = React.createClass({
     });
 
     this.props.onChange(!value.length);
-  },
+  }
+
   changeInvolveMember(list) {
     this.setState({
       involveMemberList: list
     });
-  },
-  render: function() {
+  }
+
+  render() {
     return (
       <div className="task-details">
         <div className="title-box">
-          <input type="text" defaultValue={this.props.placeholder||""} placeholder="任务标题" autofocus="autofocus" className="title" onKeyUp={this.handleNextStep}/>
+          <input type="text" defaultValue={this.props.placeholder||""} placeholder="任务标题" autoFocus={true} className="title" onKeyUp={(e) => {this.handleNextStep(e)}}/>
           <span className="plus-button" style={{opacity: this.state.opacity}}>
             <i className="iconfont icon-iconfontadd"></i>
           </span>
@@ -52,20 +55,23 @@ var TaskDetail = React.createClass({
               fetch={"/api/getStageList"}/>
           </span>
           <span className="time-selector">
+            <span>截至时间：</span>
             <Datepicker
               onChange={(value) => this.setState({ normal: value })}
               value="2015-06-21 17:24:03" />
           </span>
           <span className="more-selector">
-            <MemberMenu onChange={this.changeInvolveMember} defaultMember={[{
-              avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
-              name: '石建国',
-              id: 1}]} />
+            <span>参与人员：</span>
+            <MemberMenu onChange={(data) => {this.changeInvolveMember(data)}} 
+              defaultMember={[{
+                avatar: 'https://striker.teambition.net/thumbnail/110fae3e704be9b913af77987cd02c58d0d5/w/100/h/100',
+                name: '石建国',
+                id: 1
+              }]} 
+            />
           </span>
         </div>
       </div>
     )
   }
-});
-
-module.exports = TaskDetail;
+}

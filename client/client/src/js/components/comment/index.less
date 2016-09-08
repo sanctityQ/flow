@@ -1,0 +1,32 @@
+.box-comments-wrap {
+  .box-header {
+    margin-top: 10px;
+    border-top: 3px solid #4285f4;
+  }
+  form {
+    margin-bottom: 0;
+  }
+}
+.comment-avatar {
+  float: left;
+  &:before {  
+    display: inline-block;
+    position: relative;
+    height: 30px;
+    width: 30px;
+    line-height: 30px;
+    border: none;
+    border-radius: 50%;
+    -webkit-user-drag: none;
+    background-color: #03a9f4;
+    box-sizing: content-box;
+    cursor: pointer;
+    outline: none;
+    text-align: center;
+    color: #fff;
+    content: attr(title);
+  }
+  + .img-push {
+    margin-left: 40px;
+  }
+}

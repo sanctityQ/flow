@@ -3,12 +3,17 @@
 }
 .mailbox-operation {
   position: absolute;
-  right: 20%;
+  right: 10px;
   top: 10px;
+  &.active {
+    >span {
+      opacity: 1;
+    }
+  }
   >span {
     position: relative;
     display: inline-block;
-    width: 24px;
+    width: 36px;
     opacity: 0;
     transition: all .5s;
     cursor: pointer;
@@ -16,7 +21,7 @@
     .iconfont {
       font-size: 18px;
     }
-    &.selected {
+    &:focus, &.selected {
       .icon-pin {
         color: #4285fc;
       }
@@ -39,29 +44,6 @@
         width: 24px;
         background-color: rgba(0,0,0,.12);
       }
-    }
-    .icon-shijian {
-      position: absolute;
-    }
-  }
-  .snoozed {
-    position: relative;
-    .rct-form-control {
-      box-shadow: none;
-      border: none;
-    }
-    .icon.calendar {
-      display: none;
-    }
-    .rct-datetime {
-      width: 100%;
-      background: transparent;
-      padding-left: 0;
-    }
-    .date-text {
-      width: 14px;
-      overflow: hidden;
-      font-size: 0;
     }
   }
 }

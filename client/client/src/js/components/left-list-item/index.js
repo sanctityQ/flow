@@ -12,6 +12,7 @@ var LeftListItem = React.createClass({
     }
   },
   handleClick(event, item) {
+    event.persist();
     event.data = {typeValue: item.type, typeName: item.text};
     this.setState({active: !this.state.active});
   },
@@ -19,7 +20,7 @@ var LeftListItem = React.createClass({
     let item = this.props.data.self;
     let parentItem = this.props.data.parent;
     return (
-      <li className={classNames({'active': item.type == parentItem.currentTaskType})} onClick={(event)=>(this.handleClick(event, item))}>
+      <li className={classNames({'active': item.type == parentItem.currentTaskType})} onClick={(event)=>{this.handleClick(event, item)}}>
         <a href="javascript:;">
           <i className={item.className}></i>
           {item.text}

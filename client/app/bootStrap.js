@@ -19,7 +19,7 @@ var tclog = require('./libs/tclog.js');
 var genLogid = require('./libs/logid').genLogid;
 var api = require('./libs/api');
 
-GLOBAL.G_REDISCLIENT = new require('ioredis')(config.redis);
+// GLOBAL.G_REDISCLIENT = new require('ioredis')(config.redis);
 
 app.keys = ['tiancai', 'xiaoguang'];
 
@@ -49,19 +49,19 @@ if (runEnv === 'dev') {
   });
 }
 
-app.redisIsOk = true;
+app.redisIsOk = false;
 
-G_REDISCLIENT.on('disconnect', function() {
-  app.redisIsOk = false;
-});
+// G_REDISCLIENT.on('disconnect', function() {
+//   app.redisIsOk = false;
+// });
 
-app.use(session({
-  store: redisStore({
-    client: G_REDISCLIENT
-  }),
-  prefix: 'zeus:admin:',
-  ttl: 30 * 60
-}));
+// app.use(session({
+//   store: redisStore({
+//     client: G_REDISCLIENT
+//   }),
+//   prefix: 'zeus:admin:',
+//   ttl: 30 * 60
+// }));
 
 app.use(function * (next) {
   var logid = genLogid();
@@ -75,9 +75,9 @@ app.use(function * (next) {
       this.userInfo = userInfo;
     } catch(e) {
       this.userInfo = null;
-    }
+    } 
   } else {
-    this.userInfo = null;
+    this.userInfo = null;  
   }
 
   tclog.notice({

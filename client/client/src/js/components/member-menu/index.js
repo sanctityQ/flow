@@ -1,24 +1,28 @@
-require("!style!css!less!./index.less");
+import './index.less';
 
 import React, { Component, PropTypes } from 'react';
 import Reflux from 'reflux';
 import classNames from 'classnames';
 import 'whatwg-fetch';
+
 import ClickAway from '../mixins/ClickAway';
 import compare from '../util/deepEqual';
 import clone from '../util/clone';
+import handleWheel from '../inspect-wheel';
 
-class MemberMenu extends ClickAway(Component) {
+import FlipMove from 'react-flip-move';
+
+export default class MemberMenu extends ClickAway(Component) {
   constructor(props) {
     super(props);
 
     this.state = {
       active: false,
-      selectedMemberIds: clone(this.props.defaultMember.map((v, i)=>(v.id))),
+      selectedMemberIds: this.props.defaultMember.map((v, i)=>(v.id)),
       memberList: [],
       isSelectAll: false,
       //参与人员
-      involveMemberList: clone(this.props.defaultMember) || []
+      involveMemberList: this.props.defaultMember || []
     };
 
     this.open = this.open.bind(this);
@@ -48,7 +52,7 @@ class MemberMenu extends ClickAway(Component) {
     return fetch('/api/getMemberList')
     .then(response=>response.json())
     .then((data)=>(
-      this.setState({memberList: data})
+      this.setState({memberList: data, originMemberList: data})
     ))
   }
 
@@ -58,10 +62,18 @@ class MemberMenu extends ClickAway(Component) {
     }).length > 0;
   }
 
+  filterMember(e) {
+    let keyword = e.target.value;
+    let filterMembers  = this.state.originMemberList.filter((item, index)=>{
+      return keyword == '' ? true : item.name.indexOf(keyword) > -1;
+    });
+    this.setState({memberList: filterMembers});
+  }
+
   toggleMemberSelected(member, index) {
-    var selectedMemberIdsClone = clone(this.state.selectedMemberIds);
-    var involveMemberListClone = clone(this.state.involveMemberList);
-    var memberId = member.id;
+    let selectedMemberIdsClone = clone(this.state.selectedMemberIds);
+    let involveMemberListClone = clone(this.state.involveMemberList);
+    let memberId = member.id;
 
     if (this.isHasMember(member)) return;
 
@@ -95,26 +107,29 @@ class MemberMenu extends ClickAway(Component) {
   render() {
     return (
       <div className="popover-memu">
-        <ul className="involve-members clearfix">
+        <FlipMove typeName="ul" 
+          enterAnimation="elevator" 
+          leaveAnimation="fade" 
+          className="involve-members clearfix">
           {this.state.involveMemberList.map((member, index)=>{
             return (
-              <li className="involve-member" key={index}>
+              <li className="involve-member" key={index} id={index}>
                 <img className="avatar" src={member.avatar} />
               </li>
             )
           })}
-          <li className="involve-member-add">
+          <li id={this.state.involveMemberList.length + 1} className="involve-member-add">
             <a className="add-involvement-handler clearfix" onClick={()=>(this.open())}>
               <span className="iconfont icon-iconfontadd" title="添加参与者"></span> 
             </a>
           </li>
-        </ul>
+        </FlipMove>
         <div className={classNames('popover', 'member-menu-view', 'bottom', 'in', {'active': this.state.active})} ref="menu">
           <div className="popover-content thin-scroll">
             <div className="menu-input">
-              <input className="filter-input form-control" placeholder="查找成员" />
+              <input onChange={(e) => this.filterMember(e)} className="filter-input form-control" placeholder="查找成员" />
             </div>
-            <ul className="list-unstyled thin-scroll">
+            <ul className="list-unstyled thin-scroll" onWheel={(e) => {handleWheel(e)}}>
               <li className={classNames('member-item', 'all', 'active', {'selected': this.state.isSelectAll})} onClick={()=>(this.selectAll())}>
                 <a>
                   <i className="fa fa-users"></i>所有成员
@@ -137,5 +152,3 @@ class MemberMenu extends ClickAway(Component) {
     )
   }
 }
-
-module.exports = MemberMenu;

@@ -1,75 +1,102 @@
 require("!style!css!less!./index.less");
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
-var classNames = require('classnames');
+import React, { Component, PropTypes } from 'react';
+import Reflux from 'reflux';
+import ReactDOM from 'react-dom';
+import classNames from 'classnames';
 
-var TaskDetail = require('../task-detail');
-var TaskExtra = require('../task-extra');
-var Operator = require('../list-operator');
+import Operator from '../list-operator';
+import PopupTask from '../popup-task';
+import Subtask from '../subtask';
 
-var BoxListItem = React.createClass({
-  getInitialState() {
-    return {
-      isShowTaskView: false,
-      active: true
-    }
-  },
-  toggleTaskView() {
-    this.setState({
-      isShowTaskView: !this.state.isShowTaskView
-    });
-  },
-  handlePin() {
-    this.setState({active: false});
-  },
-  handleSnoozed() {
-    this.setState({
-      isSnoozed: !this.state.isSnoozed
-    });
-  },
-  handleDone() {
-    this.setState({active: false});
-  },
-  handleCategory(event) {
-    event.stopPropagation();
-  },
-  render() {
-    if (this.state.isShowTaskView) {
-      return (
-        <div className={classNames('task-view', {'active': this.state.active})}>
-          <div className="task">
-            <div className="task-title" onClick={this.toggleTaskView}>
-              <b>{this.props.data.title}</b> - {this.props.data.abstract}
-              <Operator
-                onPin={()=>{this.handlePin()}} 
-                onSnoozed={()=>{this.handleSnoozed()}} 
-                onDone={()=>{this.handleDone()}}
-                onCreateLabel={()=>this.props.onCreateLabel()}/>
-            </div>
-            <TaskDetail onChange={this.handleChange} placeholder={this.props.data.title}/>
-            <TaskExtra />
-          </div>
-        </div>
-      );
-    } else {
-      return (
-        <div ref="list" onClick={this.toggleTaskView} className={classNames('list-item', {'active': this.state.active})}>
-          <span className="mailbox-avatar" title={this.props.data.name.slice(0, 1)}></span>
-          <span className="mailbox-name"><a href="read-mail.html">{this.props.data.name}</a></span>
-          <span className="mailbox-subject">
-            <b>{this.props.data.title}</b> - {this.props.data.abstract}
-          </span>
-          <Operator
-            onPin={()=>{this.handlePin()}} 
-            onSnoozed={()=>{this.handleSnoozed()}} 
-            onDone={()=>{this.handleDone()}}
-            onCreateLabel={()=>this.props.onCreateLabel()}/>
-        </div>
-      );
-    }
+export default class BoxListItem extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {open: false};
   }
-});
 
-module.exports = BoxListItem;
+  showOperator() {
+    if (this.state.open) return;
+    this.refs.operator.show();
+  }
+
+  hideOperator() {
+    if (this.state.open) return;
+    this.refs.operator.hide();
+  }
+
+  componentWillReceiveProps() {
+
+  }
+
+  closePopupTask(e) {
+    e.stopPropagation();
+    this.setState({open: false});
+  }
+
+  openPopupTask() {
+    if (this.state.open) return;
+    this.setState({open: true});
+  }
+
+  toggleFold(e) {
+    e.stopPropagation();
+    this.setState({
+      open: !this.state.open
+    });
+    this.props.changeFoldStatus();
+  }
+
+  render() {
+    const {abstract, title, name, id, level, status, subtask, isSelf} = this.props.data;
+    const {container, origin} = this.props;
+
+    let content = (
+      <div className="list-content">
+        <span
+          className={classNames('fa', {
+            'fa-angle-right': status == 'close',
+            'fa-angle-down': status == 'open',
+            'hidden': subtask ? !subtask.length : true
+          })} 
+          onClick={(e) => this.toggleFold(e)}>
+        </span>
+        <span className="mailbox-avatar" title={name.slice(0, 1)}></span>
+        <span className="mailbox-name"><a href="read-mail.html">{name}</a></span>
+        <span className="mailbox-subject">
+          <b>{title}</b> - {abstract}
+        </span>
+        <Operator ref="operator"/>
+      </div>
+    );
+
+    //列表缩进的class
+    let indentClassName = 'indent_' + level;
+    //判断任务是否隐藏
+    let isHide = () => {
+      return !isSelf && status == 'close' && level != 1
+    };
+
+    //任务编辑弹窗视图
+    let openContent = (
+      <PopupTask 
+        data={this.props.data} 
+        level={level} 
+        container={container} 
+        origin={origin}
+        onRequestClose={(e) => this.closePopupTask(e)}>
+      </PopupTask>
+    );
+
+    return (
+      <div ref="listItem"
+        id={id}
+        className={classNames('list-item', indentClassName, {hide: isHide()})}
+        onClick={() => {this.openPopupTask()}} 
+        onMouseOver={()=>{this.showOperator()}}
+        onMouseLeave={()=>{this.hideOperator()}}>
+        {this.state.open ? openContent : content}
+      </div>
+    );
+  }
+}

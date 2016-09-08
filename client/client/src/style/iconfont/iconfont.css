@@ -1,0 +1,50 @@
+
+@font-face {font-family: "iconfont";
+  src: url('/vendor/bower_components/iconfont/iconfont.eot?t=1470205780'); /* IE9*/
+  src: url('/vendor/bower_components/iconfont/iconfont.eot?t=1470205780#iefix') format('embedded-opentype'), /* IE6-IE8 */
+  url('/vendor/bower_components/iconfont/iconfont.woff?t=1470205780') format('woff'), /* chrome, firefox */
+  url('/vendor/bower_components/iconfont/iconfont.ttf?t=1470205780') format('truetype'), /* chrome, firefox, opera, Safari, Android, iOS 4.2+*/
+  url('/vendor/bower_components/iconfont/iconfont.svg?t=1470205780#iconfont') format('svg'); /* iOS 4.1- */
+}
+
+.iconfont {
+  font-family:"iconfont" !important;
+  font-size:16px;
+  font-style:normal;
+  -webkit-font-smoothing: antialiased;
+  -webkit-text-stroke-width: 0.2px;
+  -moz-osx-font-smoothing: grayscale;
+}
+.icon-psd:before { content: "\e619"; }
+.icon-queren:before { content: "\e611"; }
+.icon-attachment:before { content: "\e614"; }
+.icon-zhiding:before { content: "\e600"; }
+.icon-yonghu:before { content: "\e601"; }
+.icon-msnui-word:before { content: "\e61a"; }
+.icon-edit:before { content: "\e613"; }
+.icon-download:before { content: "\e617"; }
+.icon-image:before { content: "\e61b"; }
+.icon-pin:before { content: "\e60d"; }
+.icon-delete:before { content: "\e618"; }
+.icon-gengduo:before { content: "\e602"; }
+.icon-pdf:before { content: "\e61c"; }
+.icon-document:before { content: "\e61e"; }
+.icon-document1:before { content: "\e61f"; }
+.icon-more:before { content: "\e612"; }
+.icon-iconfontadd:before { content: "\e603"; }
+.icon-dianping:before { content: "\e604"; }
+.icon-guanbi:before { content: "\e605"; }
+.icon-kanguo:before { content: "\e606"; }
+.icon-shijian:before { content: "\e607"; }
+.icon-shoucang:before { content: "\e608"; }
+.icon-xiangqu:before { content: "\e609"; }
+.icon-zan:before { content: "\e60a"; }
+.icon-tree:before { content: "\e620"; }
+.icon-shanchu:before { content: "\e60b"; }
+.icon-shezhi:before { content: "\e60c"; }
+.icon-pinglun:before { content: "\e60e"; }
+.icon-bianji:before { content: "\e60f"; }
+.icon-tixing:before { content: "\e610"; }
+.icon-todo:before { content: "\e615"; }
+.icon-txt:before { content: "\e61d"; }
+.icon-note:before { content: "\e616"; }

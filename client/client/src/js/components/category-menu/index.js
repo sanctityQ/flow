@@ -1,4 +1,4 @@
-require("!style!css!less!./index.less");
+import '../popup-menu/index.less';
 
 import React, { Component, PropTypes } from 'react';
 import Reflux from 'reflux';
@@ -54,30 +54,30 @@ class CategoryMenu extends ClickAway(Component) {
 
   render() {
     return (
-      <div className={classNames('popover-category-memu', {'active': this.state.active})}>
-        <header className="popover-category-memu-header"><span>移到…</span></header>
-        <div className="popover-category-memu-body">
-          <div className="popover-category-memu-body-list">
+      <div className={classNames('popup-menu', {'active': this.state.active})}>
+        <header className="popup-menu-header"><span>移到…</span></header>
+        <div className="popup-menu-body">
+          <div className="popup-menu-body-list">
             <ul>
               <li className="item">
-                <img className="item-img" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_trash_grey600_18dp_2x.png" />
+                <img className="item-img" src="" />
                 <span className="item-text">购物</span>
               </li>
               <li className="item">
-                <img className="item-img" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_trash_grey600_18dp_2x.png" />
+                <img className="item-img" src="" />
                 <span className="item-text">购物</span>
               </li>
               <li className="item">
-                <img className="item-img" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_trash_grey600_18dp_2x.png" />
+                <img className="item-img" src="" />
                 <span className="item-text">购物</span>
               </li>
               <li className="item">
-                <img className="item-img" src="https://ssl.gstatic.com/bt/C3341AA7A1A076756462EE2E5CD71C11/2x/btw_ic_trash_grey600_18dp_2x.png" />
+                <img className="item-img" src="" />
                 <span className="item-text">购物</span>
               </li>
             </ul>
           </div>
-          <div className="popover-category-memu-body-btn" onClick={(e)=>{this.handleCreateLabel(e)}}>
+          <div className="popup-menu-body-btn" onClick={(e)=>{this.handleCreateLabel(e)}}>
             <div className="label-new-icon">
               <i className="iconfont icon-iconfontadd"></i>
               <span>新建...</span>

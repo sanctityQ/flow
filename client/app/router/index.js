@@ -65,11 +65,15 @@ function setMap(ctrs) {
     // //修改任务场景
     // router.get('/api/modifyTaskStage', ctrs.api.modifyTaskStage);
 
-    // //文件上传
-    // router.post('/upload', ctrs.api.upload);
-    // //评论
-    // router.post('/comment', ctrs.api.comment);
+    //文件上传
+    router.post('/api/upload', ctrs.api.upload);
+    //获取评论列表
+    router.get('/api/getCommentList', ctrs.api.getCommentList);
+    // //发表评论
+    // router.post('/api/comment', ctrs.api.getCommentList);
     // //各分类的消息总数
     // router.get('/notice', ctrs.api.notice);
+    // 
+    router.get('/api/tree', ctrs.api.getTreeData);
 }
 module.exports = set;

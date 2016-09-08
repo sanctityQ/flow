@@ -1,34 +1,28 @@
-require("!style!css!less!./index.less");
+import './index.less';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Reflux from 'reflux';
+import classNames from 'classnames';
 
-var classNames = require('classnames');
-var TaskDetail = require('../task-detail');
+import TaskDetail from '../task-detail';
 
-var TaskNew = React.createClass({
-  handleClick: function() {
+export default class TaskNew extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  handleClick() {
     this.props.onClick();
-  },
-  handleMouseEnter: function() {
+  }
 
-  },
-  handleMouseLeave: function() {
-    
-  },
-  render: function() {
+  render() {
     return (
       <div className="task-new">
-        <div className="task-new-icon" 
-          onClick={this.handleClick} 
-          onMouseEnter={this.handleMouseEnter} 
-          onMouseLeave={this.handleMouseLeave}>
+        <div className="task-new-icon" onClick={(e) => {this.handleClick(e)}}>
           <i className="iconfont icon-iconfontadd"></i>
         </div>
       </div>
     )
   }
-});
-
-module.exports = TaskNew;
+}

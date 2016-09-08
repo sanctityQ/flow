@@ -1,42 +1,87 @@
-require("!style!css!less!./index.less");
+import './index.less';
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
+import React, { Component, PropTypes } from 'react';
+import ReactDOM from 'react-dom';
+import Reflux from 'reflux';
+import classNames from 'classnames';
 
-var BoxHeader = require('../box-header');
-var BoxBody = require('../box-body');
-var BoxEmpty = require('../box-empty');
-var boxStore = require('../../store/boxStore');
-var boxAction = require('../../action/boxAction');
+import BoxHeader from '../box-header';
+import BoxEmpty from '../box-empty';
+import BoxBody from '../box-body';
+import boxStore from '../../store/boxStore';
+import boxAction from '../../action/boxAction';
+import Loading from '../loading';
 
-var Box = React.createClass({
-  getInitialState: function() {
-    return {
-      boxList: []
+export default class Box extends Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      boxList: [],
+      loadingStatus: true
     };
-  },
-  mixins: [Reflux.connect(boxStore)],
-  getBoxList: function(eventData) {
-    boxAction.fetchList(eventData ? eventData.typeValue : this.props.data.currentTaskType);
-  },
-  componentWillMount: function() {
+  }
+
+  onStatusChange(result) {
+    this.setState({
+      boxList: result,
+      loadingStatus: false
+    });
+  }
+
+  componentWillMount() {
     this.getBoxList();
-  },
-  render: function() {
+  }
+
+  componentDidMount() {
+    this.unsubscribe = boxStore.listen((data) => {this.onStatusChange(data)});
+  }
+
+  componentWillReceiveProps() {
+    // this.setState({loadingStatus: true});
+  }
+
+  componentWillUnmount() {
+    this.unsubscribe();
+  }
+
+  getBoxList(eventData) {
+    boxAction.fetchList(eventData ? eventData.typeValue : this.props.data.currentTaskType);
+  }
+
+  render() {
+
+    if (this.state.loadingStatus) {
+      return (
+        <div><Loading active={this.state.loadingStatus} /></div>
+      )
+    }
+
+    if (!this.state.boxList.length) {
+      return (
+        <div>
+          <BoxEmpty 
+            typeValue={this.props.data.currentTaskType} 
+            navbarTitle={this.props.data.navbarTitle} 
+          />
+        </div>
+      )
+    }
+
     return (
-      <div className="">
-        {this.state.boxList.length ? this.state.boxList.map((item, index)=>{
+      <div>
+        {this.state.boxList.map((item, index)=>{
           return (
-            <div className="box box-primary box-item" key={index} >
-              <BoxHeader title={item.type} />
-              <BoxBody onCreateLabel={()=>this.props.onCreateLabel()} itemList={item.data} ref="boxBody" onClick={this.handleListItemClick} />
+            <div className={classNames('box box-primary box-item', {'box-snooze': item.type == 'snooze'})} key={index} >
+              <BoxHeader title={item.typeName} />
+              <BoxBody 
+                itemList={item.data} ref="boxBody" 
+                onClick={this.handleListItemClick} 
+                onCreateLabel={()=>this.props.onCreateLabel()} 
+              />
             </div>
           )
-        }) : <BoxEmpty typeValue={this.props.data.currentTaskType} navbarTitle={this.props.data.navbarTitle} />}
+        })}
       </div>
     );
   }
-});
-
-module.exports = Box;
+}

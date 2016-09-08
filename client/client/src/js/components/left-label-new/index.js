@@ -5,20 +5,16 @@ var ReactDOM = require('react-dom');
 var Reflux = require('reflux');
 
 var classNames = require('classnames');
-
-var labelListStore = require('../../store/leftLabelListStore');
 var labelListAction = require('../../action/leftLabelListAction');
 
 var LabelNew = React.createClass({
   getInitialState: function() {
     return {
-      leftLabelList: [],
       labelTitle: '',
       isDisabled: false,
       isWarned: false
     };
   },
-  mixins: [Reflux.connect(labelListStore)],
   saveLabel: function() {
     var value = this.state.labelTitle;
 

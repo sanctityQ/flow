@@ -15,7 +15,7 @@ var Folder = React.createClass({
       leftFolderList: []
     };
   },
-  mixins: [Reflux.connect(leftFolderListStore)],
+  mixins: [Reflux.connect(leftFolderListStore, 'leftFolderList')],
   componentWillMount: function() {
     leftFolderListAction.fetchList();
   },

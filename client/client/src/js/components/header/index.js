@@ -1,15 +1,24 @@
 require("!style!css!less!./index.less");
 
-var React = require('react');
-var ReactDOM = require('react-dom');
-var Reflux = require('reflux');
+let React = require('react');
+let ReactDOM = require('react-dom');
+let Reflux = require('reflux');
+let classNames = require('classnames');
 
-var Header = React.createClass({
-  render: function() {
+let Header = React.createClass({
+  getInitialState() {
+    return {
+      isMenuShow: false
+    };
+  },
+  toggleUserMenu() {
+    this.setState({isMenuShow: !this.state.isMenuShow})
+  },
+  render() {
     return (
       <header className="main-header">
         <nav className="navbar navbar-static-top">
-          <a href="javascript:;" className="sidebar-toggle" onClick={this.props.onHeaderClick}>
+          <a href="javascript:;" className="sidebar-toggle" onClick={()=>{this.props.onHeaderClick()}}>
             <span className="sr-only">Toggle navigation</span>
             <span className="icon-bar"></span>
             <span className="icon-bar"></span>
@@ -18,124 +27,25 @@ var Header = React.createClass({
           <span className="navbar-title">{this.props.navbarTitle}</span>
           <div className="navbar-custom-menu">
             <ul className="nav navbar-nav">
-              <li className="dropdown messages-menu">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <i className="fa fa-envelope-o"></i>
-                  <span className="label label-success">4</span>
+              <li className="dropdown user user-menu" onClick={()=>{this.toggleUserMenu()}}>
+                <a href="javascript:;" className="dropdown-toggle" data-toggle="dropdown">
+                  <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" className="user-image" alt="User Image" />
+                  <span className="hidden-xs">隔壁老王</span>
                 </a>
-                <ul className="dropdown-menu">
-                  <li className="header">You have 4 messages</li>
-                  <li>
-                    <div className="slimScrollDiv">
-                      <ul className="menu">
-                        <li>
-                          <a href="#">
-                            <div className="pull-left">
-                              <img src="../../dist/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
-                            </div>
-                            <h4>
-                              Support Team
-                              <small><i className="fa fa-clock-o"></i> 5 mins</small>
-                            </h4>
-                            <p>Why not buy a new awesome theme?</p>
-                          </a>
-                        </li>
-                      </ul>
-                      <div className="slimScrollBar"></div>
-                    </div>
-                  </li>
-                  <li className="footer"><a href="#">See All Messages</a></li>
-                </ul>
-              </li>
-              <li className="dropdown notifications-menu">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <i className="fa fa-bell-o"></i>
-                  <span className="label label-warning">10</span>
-                </a>
-                <ul className="dropdown-menu">
-                  <li className="header">You have 10 notifications</li>
-                  <li>
-                    <div className="slimScrollDiv">
-                      <ul className="menu">
-                        <li>
-                          <a href="#">
-                            <i className="fa fa-users text-aqua"></i> 5 new members joined today
-                          </a>
-                        </li>
-                      </ul>
-                      <div className="slimScrollBar"></div>
-                      <div className="slimScrollRail"></div>
-                    </div>
-                  </li>
-                  <li className="footer"><a href="#">View all</a></li>
-                </ul>
-              </li>
-              <li className="dropdown tasks-menu">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <i className="fa fa-flag-o"></i>
-                  <span className="label label-danger">9</span>
-                </a>
-                <ul className="dropdown-menu">
-                  <li className="header">You have 9 tasks</li>
-                  <li>
-                    <div className="slimScrollDiv">
-                      <ul className="menu">
-                        <li>
-                          <a href="#">
-                            <h3>
-                              Design some buttons
-                              <small className="pull-right">20%</small>
-                            </h3>
-                            <div className="progress xs">
-                              <div className="progress-bar progress-bar-aqua" role="progressbar" aria-valuenow="20" aria-valuemin="0" aria-valuemax="100">
-                                <span className="sr-only">20% Complete</span>
-                              </div>
-                            </div>
-                          </a>
-                        </li>
-                      </ul>
-                      <div className="slimScrollBar"></div>
-                      <div className="slimScrollRail"></div>
-                    </div>
-                  </li>
-                  <li className="footer">
-                    <a href="#">View all tasks</a>
-                  </li>
-                </ul>
-              </li>
-              <li className="dropdown user user-menu">
-                <a href="#" className="dropdown-toggle" data-toggle="dropdown">
-                  <img src="../../dist/img/user2-160x160.jpg" className="user-image" alt="User Image" />
-                  <span className="hidden-xs">Alexander Pierce</span>
-                </a>
-                <ul className="dropdown-menu">
+                <ul className={classNames('dropdown-menu', {'active': this.state.isMenuShow})}>
                   <li className="user-header">
-                    <img src="../../dist/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
-
+                    <img src="https://almsaeedstudio.com/themes/AdminLTE/dist/img/user2-160x160.jpg" className="img-circle" alt="User Image" />
                     <p>
-                      Alexander Pierce - Web Developer
-                      <small>Member since Nov. 2012</small>
+                      隔壁老王 - FE
+                      <small>2016.7.26</small>
                     </p>
-                  </li>
-                  <li className="user-body">
-                    <div className="row">
-                      <div className="col-xs-4 text-center">
-                        <a href="#">Followers</a>
-                      </div>
-                      <div className="col-xs-4 text-center">
-                        <a href="#">Sales</a>
-                      </div>
-                      <div className="col-xs-4 text-center">
-                        <a href="#">Friends</a>
-                      </div>
-                    </div>
                   </li>
                   <li className="user-footer">
                     <div className="pull-left">
-                      <a href="#" className="btn btn-default btn-flat">Profile</a>
+                      <a href="#" className="btn btn-default btn-flat">个人信息</a>
                     </div>
                     <div className="pull-right">
-                      <a href="#" className="btn btn-default btn-flat">Sign out</a>
+                      <a href="#" className="btn btn-default btn-flat">退出</a>
                     </div>
                   </li>
                 </ul>

@@ -15,7 +15,7 @@ var Label = React.createClass({
       leftLabelList: []
     };
   },
-  mixins: [Reflux.connect(leftLabelListStore)],
+  mixins: [Reflux.connect(leftLabelListStore, 'leftLabelList')],
   componentWillMount: function() {
     leftLabelListAction.fetchList();
   },

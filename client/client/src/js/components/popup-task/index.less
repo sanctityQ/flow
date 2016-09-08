@@ -1,0 +1,56 @@
+.popup-task {
+  padding: 20px 16px;
+}
+.task-view {
+  position: relative;
+  z-index: 100;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 0 10px 1px #333;
+  margin-bottom: 50px;
+  margin-top: 50px;
+  &.active {
+    display: block;
+  }
+  .task {
+    padding: 5px 15px;
+  }
+  .task-details {
+    .title-box {
+      border: none;
+      padding: 0;
+      input {
+        font-size: 55px;
+        line-height: 70px;
+        height: 70px;
+        text-align: left;
+      }
+      .plus-button {
+        display: none;
+      }
+    }
+    .top-level-details {
+      opacity: 1;
+      padding-top: 10px;
+    }
+  }
+  .task-extras {
+    opacity: 1;
+  }
+}
+.task-title {
+  position: relative;
+  cursor: pointer;
+  padding: 16px 20px;
+  outline: 1px solid transparent;
+  font-size: 16px;
+  border-bottom: 1px solid #ddd;
+  margin: 0 -15px;
+  .mailbox-operation {
+    >span {
+      opacity: 1;
+    }
+  }
+}
