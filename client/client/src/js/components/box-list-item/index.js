@@ -12,7 +12,10 @@ import Subtask from '../subtask';
 export default class BoxListItem extends Component {
   constructor(props) {
     super(props);
-    this.state = {open: false};
+    this.state = {
+      open: false,
+      isEdit: false
+    };
   }
 
   showOperator() {
@@ -31,12 +34,12 @@ export default class BoxListItem extends Component {
 
   closePopupTask(e) {
     e.stopPropagation();
-    this.setState({open: false});
+    this.setState({isEdit: false});
   }
 
   openPopupTask() {
-    if (this.state.open) return;
-    this.setState({open: true});
+    if (this.state.isEdit) return;
+    this.setState({isEdit: true});
   }
 
   toggleFold(e) {
@@ -95,7 +98,7 @@ export default class BoxListItem extends Component {
         onClick={() => {this.openPopupTask()}} 
         onMouseOver={()=>{this.showOperator()}}
         onMouseLeave={()=>{this.hideOperator()}}>
-        {this.state.open ? openContent : content}
+        {this.state.isEdit ? openContent : content}
       </div>
     );
   }
